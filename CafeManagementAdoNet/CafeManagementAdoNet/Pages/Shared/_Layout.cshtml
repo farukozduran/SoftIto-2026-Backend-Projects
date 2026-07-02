@@ -1,0 +1,153 @@
+﻿@{
+    var currentPage = ViewContext.RouteData.Values["page"]?.ToString();
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Cafe Management ADO.NET Razor Pages Project" />
+    <meta name="author" content="Faruk" />
+
+    <title>@ViewData["Title"] - Cafe Management</title>
+
+    <link rel="icon" type="image/x-icon" href="~/assets/favicon.ico" />
+
+    <!-- Core theme CSS -->
+    <link href="~/css/styles.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />
+</head>
+
+<body>
+    <div class="d-flex app-shell" id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper" class="app-sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-icon">☕</div>
+                <div>
+                    <div class="brand-title">Cafe Panel</div>
+                    <div class="brand-subtitle">ADO.NET</div>
+                </div>
+            </div>
+
+            <div class="sidebar-menu">
+
+                <a asp-page="/Index"
+                   class="sidebar-link @(currentPage == "/Index" ? "active" : "")">
+                    <span class="sidebar-link-icon">⌂</span>
+                    <span>Ana Sayfa</span>
+                </a>
+
+                <a asp-page="/Products/Index"
+                   class="sidebar-link @(currentPage != null && currentPage.StartsWith("/Products") ? "active" : "")">
+                    <span class="sidebar-link-icon">▣</span>
+                    <span>Ürünler</span>
+                </a>
+
+                <a asp-page="/Employees/Index"
+                   class="sidebar-link @(currentPage != null && currentPage.StartsWith("/Employees") ? "active" : "")">
+                    <span class="sidebar-link-icon">◉</span>
+                    <span>Çalışanlar</span>
+                </a>
+
+                <a asp-page="/Expenses/Index"
+                   class="sidebar-link @(currentPage != null && currentPage.StartsWith("/Expenses") ? "active" : "")">
+                    <span class="sidebar-link-icon">₺</span>
+                    <span>Giderler</span>
+                </a>
+
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-footer-title">Cafe Management</div>
+                <div class="sidebar-footer-text">Razor Pages CRUD</div>
+            </div>
+        </div>
+
+        <!-- Page content wrapper -->
+        <div id="page-content-wrapper" class="app-content">
+
+            <!-- Top navigation -->
+            <nav class="navbar app-navbar navbar-expand-lg">
+                <div class="container-fluid px-4">
+
+                    <button class="btn menu-toggle-btn" id="sidebarToggle" type="button">
+                        Menü
+                    </button>
+
+                    <button class="navbar-toggler border-0 shadow-none"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto align-items-lg-center mt-3 mt-lg-0">
+
+                            <li class="nav-item">
+                                <a class="nav-link app-nav-link" asp-page="/Products/Index">
+                                    Ürünler
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link app-nav-link" asp-page="/Employees/Index">
+                                    Çalışanlar
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link app-nav-link" asp-page="/Expenses/Index">
+                                    Giderler
+                                </a>
+                            </li>
+
+                            <li class="nav-item dropdown ms-lg-3">
+                                <a class="nav-link dropdown-toggle user-dropdown"
+                                   id="navbarDropdown"
+                                   href="#"
+                                   role="button"
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    Yönetim
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end custom-dropdown" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-page="/Products/Create">Yeni Ürün Ekle</a>
+                                    <a class="dropdown-item" asp-page="/Employees/Create">Yeni Çalışan Ekle</a>
+                                    <a class="dropdown-item" asp-page="/Expenses/Create">Yeni Gider Ekle</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-page="/Index">Ana Sayfa</a>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Page content -->
+            <main class="app-main">
+                @RenderBody()
+            </main>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap core JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core theme JS -->
+    <script src="~/js/scripts.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

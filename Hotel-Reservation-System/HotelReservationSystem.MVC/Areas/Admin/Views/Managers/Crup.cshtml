@@ -1,0 +1,31 @@
+﻿@model HotelReservationSystem.MVC.Models.ViewModels.ManagerViewModel
+
+<div class="container mt-4">
+    <h2>@(Model.Manager.Id != 0 ? "Yönetici Düzenle" : "Yeni Yönetici")</h2><hr />
+    <form asp-action="Crup" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Manager.Id" />
+        <input type="hidden" asp-for="Manager.Photo" />
+        <div class="col-md-6">
+            <div class="mb-3"><label asp-for="Manager.FullName">Ad Soyad</label><input asp-for="Manager.FullName" class="form-control" /></div>
+            <div class="mb-3"><label asp-for="Manager.Email">Email</label><input asp-for="Manager.Email" class="form-control" type="email" /></div>
+            <div class="mb-3"><label asp-for="Manager.PasswordHash">Şifre</label><input asp-for="Manager.PasswordHash" class="form-control" type="password" /></div>
+
+            <div class="mb-3">
+                <label asp-for="Manager.HotelId">Otel</label>
+                <select asp-for="Manager.HotelId" asp-items="Model.HotelList" class="form-select">
+                    <option disabled selected>-- Otel Seçin --</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label>Fotoğraf</label><input type="file" name="file" class="form-control" />
+                @if (!string.IsNullOrEmpty(Model.Manager.Photo))
+                {
+                    <img src="@Model.Manager.Photo" class="mt-2 img-thumbnail" style="height:100px;" />
+                }
+            </div>
+            <button type="submit" class="btn btn-success">Kaydet</button>
+            <a asp-action="Index" class="btn btn-secondary">İptal</a>
+        </div>
+    </form>
+</div>

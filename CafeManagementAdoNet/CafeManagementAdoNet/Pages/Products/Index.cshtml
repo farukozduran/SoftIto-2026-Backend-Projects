@@ -1,0 +1,124 @@
+﻿@page
+@model CafeManagementAdoNet.Pages.Products.IndexModel
+
+@{
+    ViewData["Title"] = "Ürünler";
+
+    var totalProduct = Model.Products.Count;
+    var totalStock = Model.Products.Sum(x => x.Stock);
+    var averagePrice = Model.Products.Any() ? Model.Products.Average(x => x.Price) : 0;
+}
+
+<div class="cafe-page">
+    <div class="cafe-container">
+
+        <section class="cafe-hero">
+            <div>
+                <div class="cafe-kicker">Kafe Yönetimi</div>
+                <h1>Ürünler</h1>
+                <p>Kafedeki ürünleri, stok durumlarını ve fiyat bilgilerini buradan yönetebilirsin.</p>
+            </div>
+
+            <div class="cafe-hero-actions">
+                <a asp-page="Create" class="cafe-btn cafe-btn-primary">+ Yeni Ürün</a>
+            </div>
+        </section>
+        <section class="cafe-search-panel">
+            <form method="get" class="cafe-search-form">
+                <div class="cafe-search-box">
+                    <span class="cafe-search-icon">⌕</span>
+                    <input asp-for="SearchTerm"
+                           class="cafe-search-input"
+                           placeholder="Ürün adı veya kategori ara..." />
+                </div>
+
+                <button type="submit" class="cafe-btn cafe-btn-primary">
+                    Ara
+                </button>
+
+                @if (!string.IsNullOrWhiteSpace(Model.SearchTerm))
+                {
+                    <a asp-page="./Index" class="cafe-btn cafe-btn-outline">
+                        Temizle
+                    </a>
+                }
+            </form>
+
+            @if (!string.IsNullOrWhiteSpace(Model.SearchTerm))
+            {
+                <div class="cafe-search-result-text">
+                    “@Model.SearchTerm” araması için @Model.Products.Count sonuç bulundu.
+                </div>
+            }
+        </section>
+
+        <section class="cafe-stats">
+            <div class="cafe-stat-card">
+                <div class="cafe-stat-label">Toplam Ürün</div>
+                <div class="cafe-stat-value">@totalProduct</div>
+            </div>
+
+            <div class="cafe-stat-card">
+                <div class="cafe-stat-label">Toplam Stok</div>
+                <div class="cafe-stat-value">@totalStock</div>
+            </div>
+
+            <div class="cafe-stat-card">
+                <div class="cafe-stat-label">Ortalama Fiyat</div>
+                <div class="cafe-stat-value">@averagePrice.ToString("N2") ₺</div>
+            </div>
+        </section>
+
+        <section class="cafe-card">
+            <div class="cafe-card-header">
+                <div>
+                    <h2 class="cafe-card-title">Ürün Listesi</h2>
+                    <p class="cafe-card-subtitle">Kayıtlı ürünleri görüntüle, düzenle veya sil.</p>
+                </div>
+            </div>
+
+            <div class="cafe-card-body">
+                @if (Model.Products.Any())
+                {
+                    <div class="cafe-table-wrap">
+                        <table class="cafe-table">
+                            <thead>
+                                <tr>
+                                    <th>Ürün</th>
+                                    <th>Kategori</th>
+                                    <th>Fiyat</th>
+                                    <th>Stok</th>
+                                    <th class="text-end">İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Products)
+                                {
+                                    <tr>
+                                        <td class="cafe-title-cell">@item.ProductName</td>
+                                        <td><span class="cafe-badge">@item.Category</span></td>
+                                        <td class="cafe-price">@item.Price.ToString("N2") ₺</td>
+                                        <td>@item.Stock adet</td>
+                                        <td>
+                                            <div class="cafe-actions">
+                                                <a asp-page="Edit" asp-route-id="@item.ProductId" class="cafe-btn cafe-btn-sm cafe-btn-warning">Düzenle</a>
+                                                <a asp-page="Delete" asp-route-id="@item.ProductId" class="cafe-btn cafe-btn-sm cafe-btn-danger">Sil</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="cafe-empty">
+                        Henüz ürün kaydı bulunmuyor.
+                    </div>
+                }
+            </div>
+        </section>
+
+    </div>
+</div>

@@ -1,0 +1,24 @@
+﻿@model HotelReservationSystem.Entity.Entities.Guest
+
+<div class="container mt-4">
+    <h2>@(Model.Id != 0 ? "Misafir Düzenle" : "Yeni Misafir")</h2><hr />
+    <form asp-action="Crup" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Photo" />
+        <div class="col-md-6">
+            <div class="mb-3"><label asp-for="IdentityNumber">T.C. Kimlik</label><input asp-for="IdentityNumber" class="form-control" /></div>
+            <div class="mb-3"><label asp-for="FirstName">Ad</label><input asp-for="FirstName" class="form-control" /></div>
+            <div class="mb-3"><label asp-for="LastName">Soyad</label><input asp-for="LastName" class="form-control" /></div>
+            <div class="mb-3"><label asp-for="Phone">Telefon</label><input asp-for="Phone" class="form-control" /></div>
+            <div class="mb-3">
+                <label>Fotoğraf</label><input type="file" name="file" class="form-control" />
+                @if (!string.IsNullOrEmpty(Model.Photo))
+                {
+                    <img src="@Model.Photo" class="mt-2 img-thumbnail" style="height:100px;" />
+                }
+            </div>
+            <button type="submit" class="btn btn-success">Kaydet</button>
+            <a asp-action="Index" class="btn btn-secondary">İptal</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,46 @@
+﻿@model Rent.App.Models.Customer
+
+@{
+    ViewData["Title"] = "Müşteri Düzenle";
+}
+
+<div class="container py-5">
+    <div class="card shadow border-0 rounded-4">
+        <div class="card-header bg-warning rounded-top-4">
+            <h3 class="mb-0">Müşteri Bilgilerini Düzenle</h3>
+        </div>
+
+        <div class="card-body p-4">
+            <form asp-action="Edit">
+                <input type="hidden" asp-for="CustomerId" />
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="CustomerName" class="form-label">Ad</label>
+                        <input asp-for="CustomerName" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="CustomerSurname" class="form-label">Soyad</label>
+                        <input asp-for="CustomerSurname" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Phone" class="form-label">Telefon</label>
+                        <input asp-for="Phone" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Email" class="form-label">Email</label>
+                        <input asp-for="Email" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-outline-secondary">Vazgeç</a>
+                    <button type="submit" class="btn btn-warning">Güncelle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

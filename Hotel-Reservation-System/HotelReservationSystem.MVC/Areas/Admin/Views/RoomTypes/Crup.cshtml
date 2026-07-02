@@ -1,0 +1,25 @@
+﻿@model HotelReservationSystem.Entity.Entities.RoomType
+
+<div class="container mt-4">
+    <h2>@(Model.Id != 0 ? "Oda Tipi Düzenle" : "Yeni Oda Tipi Ekle")</h2>
+    <hr />
+    <form asp-action="Crup" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Photo" />
+        <div class="col-md-6">
+            <div class="mb-3"><label asp-for="TypeName">Tip Adı</label><input asp-for="TypeName" class="form-control" /></div>
+            <div class="mb-3"><label asp-for="MaxCapacity">Maks. Kapasite</label><input asp-for="MaxCapacity" type="number" class="form-control" /></div>
+            <div class="mb-3"><label asp-for="Description">Açıklama</label><textarea asp-for="Description" class="form-control" rows="3"></textarea></div>
+            <div class="mb-3">
+                <label>Görsel</label>
+                <input type="file" name="file" class="form-control" />
+                @if (!string.IsNullOrEmpty(Model.Photo))
+                {
+                    <img src="@Model.Photo" class="mt-2 img-thumbnail" style="height:100px;" />
+                }
+            </div>
+            <button type="submit" class="btn btn-success">Kaydet</button>
+            <a asp-action="Index" class="btn btn-secondary">İptal</a>
+        </div>
+    </form>
+</div>

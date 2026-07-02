@@ -1,0 +1,123 @@
+﻿@page
+@model CafeManagementAdoNet.Pages.Employees.IndexModel
+
+@{
+    ViewData["Title"] = "Çalışanlar";
+
+    var totalEmployee = Model.Employees.Count;
+    var totalSalary = Model.Employees.Sum(x => x.Salary);
+    var averageSalary = Model.Employees.Any() ? Model.Employees.Average(x => x.Salary) : 0;
+}
+
+<div class="cafe-page">
+    <div class="cafe-container">
+
+        <section class="cafe-hero">
+            <div>
+                <div class="cafe-kicker">Kafe Yönetimi</div>
+                <h1>Çalışanlar</h1>
+                <p>Kafe personel bilgilerini, pozisyonlarını ve maaş kayıtlarını yönet.</p>
+            </div>
+
+            <div class="cafe-hero-actions">
+                <a asp-page="Create" class="cafe-btn cafe-btn-primary">+ Yeni Çalışan</a>
+            </div>
+        </section>
+        <section class="cafe-search-panel">
+            <form method="get" class="cafe-search-form">
+                <div class="cafe-search-box">
+                    <span class="cafe-search-icon">⌕</span>
+                    <input asp-for="SearchTerm"
+                           class="cafe-search-input"
+                           placeholder="Çalışan adı veya pozisyon ara..." />
+                </div>
+
+                <button type="submit" class="cafe-btn cafe-btn-primary">
+                    Ara
+                </button>
+
+                @if (!string.IsNullOrWhiteSpace(Model.SearchTerm))
+                {
+                    <a asp-page="./Index" class="cafe-btn cafe-btn-outline">
+                        Temizle
+                    </a>
+                }
+            </form>
+
+            @if (!string.IsNullOrWhiteSpace(Model.SearchTerm))
+            {
+                <div class="cafe-search-result-text">
+                    “@Model.SearchTerm” araması için @Model.Employees.Count sonuç bulundu.
+                </div>
+            }
+        </section>
+        <section class="cafe-stats">
+            <div class="cafe-stat-card">
+                <div class="cafe-stat-label">Toplam Çalışan</div>
+                <div class="cafe-stat-value">@totalEmployee</div>
+            </div>
+
+            <div class="cafe-stat-card">
+                <div class="cafe-stat-label">Toplam Maaş</div>
+                <div class="cafe-stat-value">@totalSalary.ToString("N2") ₺</div>
+            </div>
+
+            <div class="cafe-stat-card">
+                <div class="cafe-stat-label">Ortalama Maaş</div>
+                <div class="cafe-stat-value">@averageSalary.ToString("N2") ₺</div>
+            </div>
+        </section>
+
+        <section class="cafe-card">
+            <div class="cafe-card-header">
+                <div>
+                    <h2 class="cafe-card-title">Çalışan Listesi</h2>
+                    <p class="cafe-card-subtitle">Kayıtlı çalışanları görüntüle, düzenle veya sil.</p>
+                </div>
+            </div>
+
+            <div class="cafe-card-body">
+                @if (Model.Employees.Any())
+                {
+                    <div class="cafe-table-wrap">
+                        <table class="cafe-table">
+                            <thead>
+                                <tr>
+                                    <th>Ad Soyad</th>
+                                    <th>Pozisyon</th>
+                                    <th>Maaş</th>
+                                    <th>Başlangıç</th>
+                                    <th class="text-end">İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Employees)
+                                {
+                                    <tr>
+                                        <td class="cafe-title-cell">@item.FullName</td>
+                                        <td><span class="cafe-badge">@item.Position</span></td>
+                                        <td class="cafe-price">@item.Salary.ToString("N2") ₺</td>
+                                        <td>@item.StartDate.ToString("dd.MM.yyyy")</td>
+                                        <td>
+                                            <div class="cafe-actions">
+                                                <a asp-page="Edit" asp-route-id="@item.EmployeeId" class="cafe-btn cafe-btn-sm cafe-btn-warning">Düzenle</a>
+                                                <a asp-page="Delete" asp-route-id="@item.EmployeeId" class="cafe-btn cafe-btn-sm cafe-btn-danger">Sil</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="cafe-empty">
+                        Henüz çalışan kaydı bulunmuyor.
+                    </div>
+                }
+            </div>
+        </section>
+
+    </div>
+</div>

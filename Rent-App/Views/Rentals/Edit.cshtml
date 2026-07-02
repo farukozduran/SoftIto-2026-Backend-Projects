@@ -1,0 +1,52 @@
+﻿@model Rent.App.Models.Rental
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Kiralama Düzenle";
+}
+
+<div class="container py-5">
+    <div class="card shadow border-0 rounded-4">
+        <div class="card-header bg-warning rounded-top-4">
+            <h3 class="mb-0">Kiralama Bilgilerini Düzenle</h3>
+        </div>
+
+        <div class="card-body p-4">
+            <form asp-action="Edit">
+                <input type="hidden" asp-for="RentalId" />
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="CustomerId" class="form-label">Müşteri</label>
+                        <select asp-for="CustomerId" class="form-select" asp-items="ViewBag.Customers"></select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="CarId" class="form-label">Araç</label>
+                        <select asp-for="CarId" class="form-select" asp-items="ViewBag.Cars"></select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="RentDate" class="form-label">Kiralama Tarihi</label>
+                        <input asp-for="RentDate" type="date" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="ReturnDate" class="form-label">Teslim Tarihi</label>
+                        <input asp-for="ReturnDate" type="date" class="form-control" />
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="TotalPrice" class="form-label">Toplam Ücret</label>
+                        <input asp-for="TotalPrice" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-outline-secondary">Vazgeç</a>
+                    <button type="submit" class="btn btn-warning">Güncelle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

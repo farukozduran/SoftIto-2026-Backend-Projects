@@ -1,0 +1,40 @@
+﻿@model Rent.App.Models.Car
+
+@{
+    ViewData["Title"] = "Araç Sil";
+}
+
+<div class="container py-5">
+    <div class="card shadow border-0 rounded-4">
+        <div class="card-header bg-danger text-white rounded-top-4">
+            <h3 class="mb-0">Araç Silme Onayı</h3>
+        </div>
+
+        <div class="card-body p-4">
+            <p class="fs-5">Bu aracı silmek istediğine emin misin?</p>
+
+            <dl class="row">
+                <dt class="col-sm-3">Marka</dt>
+                <dd class="col-sm-9">@Model.Brand</dd>
+
+                <dt class="col-sm-3">Model</dt>
+                <dd class="col-sm-9">@Model.Model</dd>
+
+                <dt class="col-sm-3">Plaka</dt>
+                <dd class="col-sm-9">@Model.Plate</dd>
+
+                <dt class="col-sm-3">Günlük Ücret</dt>
+                <dd class="col-sm-9">@Model.DailyPrice ₺</dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="CarId" />
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-outline-secondary">İptal</a>
+                    <button type="submit" class="btn btn-danger">Evet, Sil</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

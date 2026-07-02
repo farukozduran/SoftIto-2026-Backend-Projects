@@ -1,0 +1,16 @@
+## Visual Studio ve Geçici Dosyalar
+.vs/
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+
+## Veri Tabanı ve Şifre Gizleme (Connection Strings)
+# Tüm projelerdeki appsettings dosyalarını GitHub'dan tamamen gizler
+**/appsettings.json
+**/appsettings.Development.json
+**/appsettings.local.json
+
+## Diğer Geçici Dosyalar
+.DS_Store
+node_modules/

@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+  </Folder>
+  <Project Path="HotelReservationSystem.Business/HotelReservationSystem.Business.csproj" />
+  <Project Path="HotelReservationSystem.Data/HotelReservationSystem.Data.csproj" />
+  <Project Path="HotelReservationSystem.Entity/HotelReservationSystem.Entity.csproj" />
+  <Project Path="HotelReservationSystem.MVC/HotelReservationSystem.MVC.csproj" />
+</Solution>

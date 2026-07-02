@@ -1,0 +1,91 @@
+﻿@model Project.World.Cup.Model.Group
+
+@{
+    ViewData["Title"] = "Grup Düzenle";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+}
+
+<div class="container entity-page">
+    <div class="entity-hero">
+        <h1>Grup Düzenle</h1>
+        <p>
+            Mevcut grup bilgisini güncelleyebilir, grup adını veya bağlı olduğu turnuvayı değiştirebilirsin.
+        </p>
+    </div>
+
+    <div class="form-shell">
+        <div class="form-card">
+            <div class="form-card-header">
+                <div>
+                    <span class="form-kicker">Grup Güncelleme</span>
+                    <h2>@Model.GroupName Grubu</h2>
+                    <p>Seçili grubun bilgilerini düzenle ve değişiklikleri kaydet.</p>
+                </div>
+
+                <div class="form-icon-box">
+                    <span>✏️</span>
+                </div>
+            </div>
+
+            <form asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" asp-for="GroupId" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-group-modern">
+                    <label asp-for="GroupName">Grup Adı</label>
+                    <input asp-for="GroupName"
+                           class="form-control modern-input"
+                           placeholder="Örn: A, B, C, D" />
+                    <span asp-validation-for="GroupName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="TournamentId">Turnuva</label>
+                    <select asp-for="TournamentId"
+                            class="form-control modern-input"
+                            asp-items="ViewBag.TournamentId">
+                        <option value="">Turnuva seçiniz</option>
+                    </select>
+                    <span asp-validation-for="TournamentId" class="text-danger"></span>
+                </div>
+
+                <div class="form-actions-modern">
+                    <a asp-action="Index" class="btn-back-modern">
+                        Listeye Dön
+                    </a>
+
+                    <button type="submit" class="btn-save-modern">
+                        Değişiklikleri Kaydet
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-info-card">
+            <h3>Düzenleme Notu</h3>
+            <p>
+                Bu gruba bağlı takımlar veya maçlar varsa, grup bilgisini değiştirirken dikkatli olmalısın.
+                Grup adı değişirse listeleme ekranlarında da yeni ad görünür.
+            </p>
+
+            <div class="info-mini-list">
+                <span>Takımlar</span>
+                <span>Maçlar</span>
+                <span>Puan Durumu</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/script.js" asp-append-version="true"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

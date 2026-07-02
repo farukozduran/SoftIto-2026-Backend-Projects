@@ -1,0 +1,357 @@
+﻿@using Project.Shop.Models
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    var lastThreeOrders = ViewBag.LastThreeOrders as List<Order>;
+    var firstThreeCategories = ViewBag.FirstThreeCategories as List<Category>;
+    var lastThreeProducts = ViewBag.LastThreeProducts as List<Product>;
+    var productsContainsA = ViewBag.ProductsContainsA as List<Product>;
+    var customersContainsA = ViewBag.CustomersContainsA as List<Customer>;
+}
+
+<h1 class="h3 mb-4 text-gray-800">Admin Dashboard</h1>
+
+<div class="row">
+
+    <!-- Category Management -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Category Management
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            Edit or delete categories
+                        </div>
+                    </div>
+
+                    <div class="col-auto">
+                        <i class="fas fa-list fa-2x text-gray-300"></i>
+                    </div>
+
+                </div>
+
+                <div class="mt-3">
+                    <a asp-controller="Categories"
+                       asp-action="Index"
+                       asp-route-isAdmin="true"
+                       class="btn btn-primary btn-sm">
+                        Manage Categories
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Management -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Product Management
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            Edit or delete products
+                        </div>
+                    </div>
+
+                    <div class="col-auto">
+                        <i class="fas fa-box fa-2x text-gray-300"></i>
+                    </div>
+
+                </div>
+
+                <div class="mt-3">
+                    <a asp-controller="Products"
+                       asp-action="Index"
+                       asp-route-isAdmin="true"
+                       class="btn btn-success btn-sm">
+                        Manage Products
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Management -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Customer Management
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            Edit or delete customers
+                        </div>
+                    </div>
+
+                    <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                    </div>
+
+                </div>
+
+                <div class="mt-3">
+                    <a asp-controller="Customers"
+                       asp-action="Index"
+                       asp-route-isAdmin="true"
+                       class="btn btn-warning btn-sm">
+                        Manage Customers
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Management -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                            Order Management
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            Edit or delete orders
+                        </div>
+                    </div>
+
+                    <div class="col-auto">
+                        <i class="fas fa-receipt fa-2x text-gray-300"></i>
+                    </div>
+
+                </div>
+
+                <div class="mt-3">
+                    <a asp-controller="Orders"
+                       asp-action="Index"
+                       asp-route-isAdmin="true"
+                       class="btn btn-danger btn-sm">
+                        Manage Orders
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<hr />
+
+<h2 class="h4 mb-4 text-gray-800">Reports</h2>
+
+<div class="row">
+
+    <!-- Last 3 Orders -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow">
+            <div class="card-header py-3 bg-primary">
+                <h6 class="m-0 font-weight-bold text-white">Last 3 Orders</h6>
+            </div>
+
+            <div class="card-body">
+                @if (lastThreeOrders != null && lastThreeOrders.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Customer</th>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in lastThreeOrders)
+                                {
+                                    <tr>
+                                        <td>@item.Customer?.CustomerName</td>
+                                        <td>@item.Product?.ProductName</td>
+                                        <td>@item.Product?.Price ₺</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted mb-0">No order records found.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- First 3 Categories -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow">
+            <div class="card-header py-3 bg-success">
+                <h6 class="m-0 font-weight-bold text-white">First 3 Categories</h6>
+            </div>
+
+            <div class="card-body">
+                @if (firstThreeCategories != null && firstThreeCategories.Any())
+                {
+                    <ul class="list-group">
+                        @foreach (var item in firstThreeCategories)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                @item.CategoryName
+
+                                @if (!string.IsNullOrEmpty(item.Tagline))
+                                {
+                                    <span class="badge badge-success">@item.Tagline</span>
+                                }
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p class="text-muted mb-0">No category records found.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Last 3 Products -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow">
+            <div class="card-header py-3 bg-warning">
+                <h6 class="m-0 font-weight-bold text-white">Last 3 Products</h6>
+            </div>
+
+            <div class="card-body">
+                @if (lastThreeProducts != null && lastThreeProducts.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in lastThreeProducts)
+                                {
+                                    <tr>
+                                        <td>@item.ProductName</td>
+                                        <td>@item.Category?.CategoryName</td>
+                                        <td>@item.Price ₺</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted mb-0">No product records found.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Containing A -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow">
+            <div class="card-header py-3 bg-danger">
+                <h6 class="m-0 font-weight-bold text-white">Products Containing Letter "A"</h6>
+            </div>
+
+            <div class="card-body">
+                @if (productsContainsA != null && productsContainsA.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in productsContainsA)
+                                {
+                                    <tr>
+                                        <td>@item.ProductName</td>
+                                        <td>@item.Category?.CategoryName</td>
+                                        <td>@item.Price ₺</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted mb-0">No products found.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Customers Containing A -->
+    <div class="col-lg-12 mb-4">
+        <div class="card shadow">
+            <div class="card-header py-3 bg-dark">
+                <h6 class="m-0 font-weight-bold text-white">Customers Containing Letter "A"</h6>
+            </div>
+
+            <div class="card-body">
+                @if (customersContainsA != null && customersContainsA.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Customer Name</th>
+                                    <th>Image Url</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in customersContainsA)
+                                {
+                                    <tr>
+                                        <td>@item.CustomerName</td>
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                            {
+                                                <a href="@item.ImageUrl" target="_blank">View Image</a>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">No image</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted mb-0">No customers found.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+</div>

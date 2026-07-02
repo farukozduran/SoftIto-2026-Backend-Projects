@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Project.World.Cup.Model.Stadium>
+
+@{
+    ViewData["Title"] = "Stadyumlar";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+}
+
+<div class="container entity-page">
+    <div class="entity-hero">
+        <h1>Dünya Kupası Stadyumları</h1>
+        <p>
+            Maçların oynanacağı stadyumları, şehirlerini, ülkelerini ve kapasite bilgilerini bu ekrandan takip edebilirsin.
+        </p>
+    </div>
+
+    <div class="entity-toolbar">
+        <div class="search-box">
+            <input type="text"
+                   class="form-control entity-search"
+                   placeholder="Stadyum ara... örn: Lusail, İstanbul, USA" />
+        </div>
+
+        <a asp-action="Create" class="create-btn">
+            + Yeni Stadyum Ekle
+        </a>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="entity-grid">
+            @foreach (var item in Model)
+            {
+                <div class="entity-card"
+                     data-search="@($"{item.StadiumName} {item.City} {item.Country}".ToLower())">
+
+                    <div class="entity-card-content">
+                        <div class="entity-header">
+                            <div class="entity-icon-box">
+                                <span class="entity-icon-placeholder">🏟️</span>
+                            </div>
+
+                            <div>
+                                <h3 class="entity-title">@item.StadiumName</h3>
+                                <span class="entity-badge">@item.City</span>
+                            </div>
+                        </div>
+
+                        <div class="entity-info">
+                            <small>Ülke</small>
+                            <span>@(string.IsNullOrEmpty(item.Country) ? "Belirtilmedi" : item.Country)</span>
+                        </div>
+
+                        <div class="entity-info">
+                            <small>Kapasite</small>
+                            <span>@(item.Capacity.HasValue ? item.Capacity.Value.ToString("N0") : "Belirtilmedi")</span>
+                        </div>
+
+                        <div class="entity-actions">
+                            <a asp-action="Details"
+                               asp-route-id="@item.StadiumId"
+                               class="btn-detail">
+                                Detay
+                            </a>
+
+                            <a asp-action="Edit"
+                               asp-route-id="@item.StadiumId"
+                               class="btn-edit">
+                                Düzenle
+                            </a>
+
+                            <a asp-action="Delete"
+                               asp-route-id="@item.StadiumId"
+                               class="btn-delete">
+                                Sil
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <h4>Henüz stadyum eklenmemiş.</h4>
+            <p>İlk stadyumu ekleyerek turnuva fikstürü için altyapıyı oluşturabilirsin.</p>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="~/js/script.js" asp-append-version="true"></script>
+}

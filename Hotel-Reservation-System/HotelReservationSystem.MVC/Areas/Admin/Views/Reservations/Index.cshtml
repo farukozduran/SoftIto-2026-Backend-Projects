@@ -1,0 +1,40 @@
+﻿@model IEnumerable<HotelReservationSystem.Entity.Entities.Reservation>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h2>Rezervasyonlar</h2>
+        <a asp-action="Crup" class="btn btn-primary">Yeni Rezervasyon Ekle</a>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Giriş Tarihi</th>
+                <th>Çıkış Tarihi</th>
+                <th>Toplam Tutar</th>
+                <th>Durum</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle">@item.CheckInDate.ToShortDateString()</td>
+                        <td class="align-middle">@item.CheckOutDate.ToShortDateString()</td>
+                        <td class="align-middle">@item.TotalAmount.ToString("C2")</td>
+                        <td class="align-middle">
+                            <span class="badge bg-info text-dark">@item.Status</span>
+                        </td>
+                        <td class="align-middle">
+                            <a asp-action="Crup" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Düzenle</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,76 @@
+﻿@page "{id:int}"
+@model CafeManagementAdoNet.Pages.Products.EditModel
+
+@{
+    ViewData["Title"] = "Ürün Düzenle";
+}
+
+<div class="cafe-page">
+    <div class="cafe-container">
+
+        <section class="cafe-hero">
+            <div>
+                <div class="cafe-kicker">Ürün İşlemleri</div>
+                <h1>Ürün Düzenle</h1>
+                <p>Seçili ürünün bilgilerini güncelle.</p>
+            </div>
+
+            <div class="cafe-hero-actions">
+                <a asp-page="Index" class="cafe-btn cafe-btn-soft">Ürünlere Dön</a>
+            </div>
+        </section>
+
+        <section class="cafe-card">
+            <div class="cafe-card-header">
+                <div>
+                    <h2 class="cafe-card-title">@Model.Product.ProductName</h2>
+                    <p class="cafe-card-subtitle">Ürün kaydını düzenliyorsun.</p>
+                </div>
+            </div>
+
+            <div class="cafe-card-body">
+                <form method="post">
+                    <input type="hidden" asp-for="Product.ProductId" />
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="cafe-form-grid">
+                        <div class="cafe-form-group">
+                            <label asp-for="Product.ProductName" class="cafe-label">Ürün Adı</label>
+                            <input asp-for="Product.ProductName" class="cafe-input" />
+                            <span asp-validation-for="Product.ProductName" class="text-danger cafe-validation"></span>
+                        </div>
+
+                        <div class="cafe-form-group">
+                            <label asp-for="Product.Category" class="cafe-label">Kategori</label>
+                            <input asp-for="Product.Category" class="cafe-input" />
+                            <span asp-validation-for="Product.Category" class="text-danger cafe-validation"></span>
+                        </div>
+
+                        <div class="cafe-form-group">
+                            <label asp-for="Product.Price" class="cafe-label">Fiyat</label>
+                            <input asp-for="Product.Price" class="cafe-input" />
+                            <span asp-validation-for="Product.Price" class="text-danger cafe-validation"></span>
+                        </div>
+
+                        <div class="cafe-form-group">
+                            <label asp-for="Product.Stock" class="cafe-label">Stok</label>
+                            <input asp-for="Product.Stock" class="cafe-input" />
+                            <span asp-validation-for="Product.Stock" class="text-danger cafe-validation"></span>
+                        </div>
+                    </div>
+
+                    <div class="cafe-form-actions">
+                        <a asp-page="Index" class="cafe-btn cafe-btn-outline">Vazgeç</a>
+                        <button type="submit" class="cafe-btn cafe-btn-primary">Güncelle</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

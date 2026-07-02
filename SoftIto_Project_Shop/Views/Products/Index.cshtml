@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Project.Shop.Models.Product>
+
+@{
+    ViewData["Title"] = "Ürünler";
+    bool isAdmin = ViewData["IsAdmin"] != null && (bool)ViewData["IsAdmin"];
+}
+
+
+<section class="py-5">
+    
+    <div class="container px-4 px-lg-5 mt-5">
+        @if (!isAdmin)
+        {
+            <p>
+                <a asp-action="Create" class="btn btn-dark">Create New</a>
+            </p>
+        }
+
+        <form asp-action="Index" method="get" class="mb-4">
+            <div class="input-group">
+
+                <input type="hidden"
+                       name="categoryId"
+                       value="@ViewData["CurrentCategoryId"]" />
+
+                <input type="text"
+                       name="search"
+                       value="@ViewData["CurrentSearch"]"
+                       class="form-control"
+                       placeholder="Search by category name" />
+
+                <button type="submit" class="btn btn-dark">
+                    Search
+                </button>
+
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    Clear
+                </a>
+            </div>
+        </form>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+        
+            @foreach (var item in Model)
+            {
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="..." />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">@Html.DisplayFor(modelItem => item.ProductName)</h5>
+                                <!-- Price-->
+                                <p class="text-muted">@Html.DisplayFor(modelItem => item.Price)$</p>
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            @if (isAdmin)
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-success">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-danger">Delete</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        
+    </div>
+</section>

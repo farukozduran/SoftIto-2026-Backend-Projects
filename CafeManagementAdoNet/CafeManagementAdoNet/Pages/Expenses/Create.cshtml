@@ -1,0 +1,74 @@
+﻿@page
+@model CafeManagementAdoNet.Pages.Expenses.CreateModel
+
+@{
+    ViewData["Title"] = "Yeni Gider";
+}
+
+<div class="cafe-page">
+    <div class="cafe-container">
+
+        <section class="cafe-hero">
+            <div>
+                <div class="cafe-kicker">Gider İşlemleri</div>
+                <h1>Yeni Gider Ekle</h1>
+                <p>Kafeye ait yeni bir gider kaydı oluştur.</p>
+            </div>
+
+            <div class="cafe-hero-actions">
+                <a asp-page="Index" class="cafe-btn cafe-btn-soft">Giderlere Dön</a>
+            </div>
+        </section>
+
+        <section class="cafe-card">
+            <div class="cafe-card-header">
+                <div>
+                    <h2 class="cafe-card-title">Gider Bilgileri</h2>
+                    <p class="cafe-card-subtitle">Gider başlığı, tutar, tarih ve açıklama bilgisini gir.</p>
+                </div>
+            </div>
+
+            <div class="cafe-card-body">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="cafe-form-grid">
+                        <div class="cafe-form-group">
+                            <label asp-for="Expense.ExpenseTitle" class="cafe-label">Gider Başlığı</label>
+                            <input asp-for="Expense.ExpenseTitle" class="cafe-input" placeholder="Örn: Kahve çekirdeği alımı" />
+                            <span asp-validation-for="Expense.ExpenseTitle" class="text-danger cafe-validation"></span>
+                        </div>
+
+                        <div class="cafe-form-group">
+                            <label asp-for="Expense.Amount" class="cafe-label">Tutar</label>
+                            <input asp-for="Expense.Amount" class="cafe-input" placeholder="Örn: 3500" />
+                            <span asp-validation-for="Expense.Amount" class="text-danger cafe-validation"></span>
+                        </div>
+
+                        <div class="cafe-form-group">
+                            <label asp-for="Expense.ExpenseDate" class="cafe-label">Gider Tarihi</label>
+                            <input asp-for="Expense.ExpenseDate" type="date" class="cafe-input" />
+                            <span asp-validation-for="Expense.ExpenseDate" class="text-danger cafe-validation"></span>
+                        </div>
+
+                        <div class="cafe-form-group full">
+                            <label asp-for="Expense.Description" class="cafe-label">Açıklama</label>
+                            <textarea asp-for="Expense.Description" class="cafe-textarea" placeholder="Giderle ilgili kısa açıklama yazabilirsin."></textarea>
+                            <span asp-validation-for="Expense.Description" class="text-danger cafe-validation"></span>
+                        </div>
+                    </div>
+
+                    <div class="cafe-form-actions">
+                        <a asp-page="Index" class="cafe-btn cafe-btn-outline">Vazgeç</a>
+                        <button type="submit" class="cafe-btn cafe-btn-success">Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

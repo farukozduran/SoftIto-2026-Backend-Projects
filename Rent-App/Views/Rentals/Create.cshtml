@@ -1,0 +1,55 @@
+﻿@model Rent.App.Models.Rental
+
+@{
+    ViewData["Title"] = "Kiralama Oluştur";
+}
+
+<section class="container appointment-bar">
+
+    <form asp-action="Create">
+
+    
+
+    <div class="row g-4 align-items-end">
+
+        <div class="col-md-2">
+            <label asp-for="CustomerId" class="form-label">Müşteri</label>
+            <select asp-for="CustomerId" class="form-select" asp-items="ViewBag.CustomerId">
+                <option value="">Müşteri seçiniz</option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <label asp-for="CarId" class="form-label">Araç</label>
+            <select asp-for="CarId" class="form-select" asp-items="ViewBag.CarId">
+                <option value="">Araç seçiniz</option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <label asp-for="RentDate" class="form-label">Kiralama Tarihi</label>
+            <input asp-for="RentDate" type="date" class="form-control" />
+        </div>
+
+        <div class="col-md-2">
+            <label asp-for="ReturnDate" class="form-label">Teslim Tarihi</label>
+            <input asp-for="ReturnDate" type="date" class="form-control" />
+        </div>
+
+        <div class="col-md-2">
+            <label asp-for="TotalPrice" class="form-label">Toplam Ücret</label>
+            <input asp-for="TotalPrice" class="form-control" placeholder="Boş bırakılabilir" />
+        </div>
+            
+            
+        </div>
+
+        <div class="col-md-3 d-flex align-items-end">
+        <a asp-action="Index" class="btn btn-outline-secondary">Listeye Dön</a>
+            <button class="btn make-btn w-100">
+                Rent a Car
+            </button>
+        </div>
+    </form>
+
+</section>

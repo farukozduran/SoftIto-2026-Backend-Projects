@@ -1,0 +1,122 @@
+﻿@model IEnumerable<Project.World.Cup.Model.Match>
+
+@{
+    ViewData["Title"] = "Maçlar";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+}
+
+<div class="container entity-page">
+    <div class="entity-hero">
+        <h1>Dünya Kupası Maçları</h1>
+        <p>
+            Fikstürü, maç skorlarını, maç durumlarını, oynanacağı stadyumu ve grup bilgilerini bu ekrandan takip edebilirsin.
+        </p>
+    </div>
+
+    <div class="entity-toolbar">
+        <div class="search-box">
+            <input type="text"
+                   class="form-control entity-search"
+                   placeholder="Maç ara... örn: Türkiye, Brazil, Grup A" />
+        </div>
+
+        <a asp-action="Create" class="create-btn">
+            + Yeni Maç Ekle
+        </a>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="entity-grid">
+            @foreach (var item in Model)
+            {
+                var homeTeamName = item.HomeTeam == null ? "Ev Sahibi" : item.HomeTeam.TeamName;
+                var awayTeamName = item.AwayTeam == null ? "Deplasman" : item.AwayTeam.TeamName;
+                var groupName = item.Group == null ? "" : item.Group.GroupName;
+                var stadiumName = item.Stadium == null ? "" : item.Stadium.StadiumName;
+                var tournamentName = item.Tournament == null ? "" : item.Tournament.TournamentName;
+
+                <div class="entity-card"
+                     data-search="@($"{homeTeamName} {awayTeamName} {groupName} {stadiumName} {tournamentName} {item.MatchStage} {item.MatchStatus}".ToLower())">
+
+                    <div class="entity-card-content">
+                        <div class="entity-header">
+                            <div class="entity-icon-box">
+                                <span class="entity-icon-placeholder">⚽</span>
+                            </div>
+
+                            <div>
+                                <h3 class="entity-title">@homeTeamName - @awayTeamName</h3>
+                                <span class="entity-badge">
+                                    @(string.IsNullOrEmpty(groupName) ? item.MatchStage : $"Grup {groupName}")
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="entity-info">
+                            <small>Skor</small>
+                            <span>
+                                @(item.HomeScore.HasValue && item.AwayScore.HasValue
+                                    ? $"{item.HomeScore} - {item.AwayScore}"
+                                    : "Henüz oynanmadı")
+                            </span>
+                        </div>
+
+                        <div class="entity-info">
+                            <small>Maç Tarihi</small>
+                            <span>
+                                @(item.MatchDate.HasValue ? item.MatchDate.Value.ToString("dd.MM.yyyy HH:mm") : "Belirtilmedi")
+                            </span>
+                        </div>
+
+                        <div class="entity-info">
+                            <small>Stadyum</small>
+                            <span>
+                                @(item.Stadium == null ? "Belirtilmedi" : item.Stadium.StadiumName)
+                            </span>
+                        </div>
+
+                        <div class="entity-info">
+                            <small>Durum</small>
+                            <span>@item.MatchStatus</span>
+                        </div>
+
+                        <div class="entity-actions">
+                            <a asp-action="Details"
+                               asp-route-id="@item.MatchId"
+                               class="btn-detail">
+                                Detay
+                            </a>
+
+                            <a asp-action="Edit"
+                               asp-route-id="@item.MatchId"
+                               class="btn-edit">
+                                Düzenle
+                            </a>
+
+                            <a asp-action="Delete"
+                               asp-route-id="@item.MatchId"
+                               class="btn-delete">
+                                Sil
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <h4>Henüz maç eklenmemiş.</h4>
+            <p>İlk maçı ekleyerek fikstür ve skor takip sistemini oluşturmaya başlayabilirsin.</p>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="~/js/script.js" asp-append-version="true"></script>
+}

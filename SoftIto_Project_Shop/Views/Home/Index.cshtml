@@ -1,0 +1,467 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<style>
+    .home-wrapper {
+        margin-top: -10px;
+    }
+
+    .hero-panel {
+        background: linear-gradient(135deg, #111827, #1f2937);
+        border-radius: 28px;
+        padding: 48px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+    }
+
+        .hero-panel::after {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            right: -90px;
+            top: -90px;
+        }
+
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.12);
+        color: #e5e7eb;
+        font-size: 14px;
+        margin-bottom: 18px;
+    }
+
+    .hero-title {
+        font-size: 48px;
+        font-weight: 800;
+        line-height: 1.1;
+        max-width: 650px;
+    }
+
+    .hero-text {
+        color: #d1d5db;
+        max-width: 560px;
+        font-size: 18px;
+        margin-top: 18px;
+    }
+
+    .hero-actions {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+    }
+
+    .hero-stat-card {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 20px;
+        padding: 20px;
+        backdrop-filter: blur(8px);
+    }
+
+    .hero-stat-number {
+        font-size: 28px;
+        font-weight: 800;
+    }
+
+    .hero-stat-label {
+        color: #d1d5db;
+        font-size: 14px;
+    }
+
+    .section-title {
+        font-weight: 800;
+        color: #111827;
+    }
+
+    .section-subtitle {
+        color: #6b7280;
+    }
+
+    .feature-card {
+        border: 0;
+        border-radius: 24px;
+        padding: 26px;
+        height: 100%;
+        background: white;
+        box-shadow: 0 12px 35px rgba(17, 24, 39, 0.08);
+        transition: all .25s ease;
+    }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 45px rgba(17, 24, 39, 0.13);
+        }
+
+    .feature-icon {
+        width: 54px;
+        height: 54px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #111827;
+        color: white;
+        font-size: 24px;
+        margin-bottom: 18px;
+    }
+
+    .category-tile {
+        border-radius: 24px;
+        overflow: hidden;
+        position: relative;
+        height: 230px;
+        background: #111827;
+        box-shadow: 0 14px 35px rgba(17, 24, 39, 0.12);
+    }
+
+        .category-tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: .78;
+            transition: transform .35s ease;
+        }
+
+        .category-tile:hover img {
+            transform: scale(1.08);
+        }
+
+    .category-content {
+        position: absolute;
+        left: 22px;
+        right: 22px;
+        bottom: 22px;
+        color: white;
+        z-index: 2;
+    }
+
+        .category-content h5 {
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+    .mini-banner {
+        border-radius: 28px;
+        background: #f3f4f6;
+        padding: 36px;
+        overflow: hidden;
+    }
+
+    .mini-banner-dark {
+        background: #111827;
+        color: white;
+    }
+
+    .step-number {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #111827;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        flex-shrink: 0;
+    }
+
+    @@media (max-width: 768px) {
+        .hero-panel {
+            padding: 32px 24px;
+        }
+
+        .hero-title {
+            font-size: 34px;
+        }
+    }
+</style>
+
+<div class="home-wrapper">
+
+    <!-- Main Intro -->
+    <div class="hero-panel mb-5">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+                <div class="hero-badge">
+                    <i class="bi bi-stars"></i>
+                    Modern alışveriş deneyimi
+                </div>
+
+                <h1 class="hero-title">
+                    Teknoloji ürünlerini hızlı, sade ve şık şekilde keşfet.
+                </h1>
+
+                <p class="hero-text">
+                    Faruk's Shop; ürünleri, kategorileri, müşterileri ve siparişleri yönetebileceğin
+                    ASP.NET Core MVC tabanlı modern bir e-ticaret projesidir.
+                </p>
+
+                <div class="hero-actions">
+                    <a asp-controller="Products" asp-action="Index" class="btn btn-light btn-lg px-4">
+                        <i class="bi bi-bag me-1"></i>
+                        Ürünleri İncele
+                    </a>
+
+                    <a asp-controller="Categories" asp-action="Index" class="btn btn-outline-light btn-lg px-4">
+                        <i class="bi bi-grid me-1"></i>
+                        Kategorilere Git
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="hero-stat-card">
+                            <div class="hero-stat-number">10+</div>
+                            <div class="hero-stat-label">Kategori</div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="hero-stat-card">
+                            <div class="hero-stat-number">50+</div>
+                            <div class="hero-stat-label">Ürün</div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="hero-stat-card">
+                            <div class="hero-stat-number">
+                                <i class="bi bi-shield-check"></i>
+                            </div>
+                            <div class="hero-stat-label">
+                                Admin paneli ile ürün, kategori, müşteri ve sipariş yönetimi.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="text-center mb-4">
+        <h2 class="section-title">Mağaza Yönetimi</h2>
+        <p class="section-subtitle">
+            Projedeki ana tabloları hızlıca görüntüle veya yeni kayıt oluştur.
+        </p>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-6 col-lg-3">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="bi bi-grid-3x3-gap"></i>
+                </div>
+                <h5 class="fw-bold">Kategoriler</h5>
+                <p class="text-muted">
+                    Ürünleri kategori bazlı düzenle ve kategori kartlarını yönet.
+                </p>
+                <a asp-controller="Categories" asp-action="Index" class="btn btn-dark btn-sm">
+                    Kategorilere Git
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="bi bi-box-seam"></i>
+                </div>
+                <h5 class="fw-bold">Ürünler</h5>
+                <p class="text-muted">
+                    Ürün adı, fiyat, görsel ve kategori bilgilerini listele.
+                </p>
+                <a asp-controller="Products" asp-action="Index" class="btn btn-dark btn-sm">
+                    Ürünlere Git
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="bi bi-people"></i>
+                </div>
+                <h5 class="fw-bold">Müşteriler</h5>
+                <p class="text-muted">
+                    Müşteri kayıtlarını görüntüle, düzenle veya yeni müşteri ekle.
+                </p>
+                <a asp-controller="Customers" asp-action="Index" class="btn btn-dark btn-sm">
+                    Müşterilere Git
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="bi bi-receipt"></i>
+                </div>
+                <h5 class="fw-bold">Siparişler</h5>
+                <p class="text-muted">
+                    Hangi müşterinin hangi ürünü sipariş ettiğini takip et.
+                </p>
+                <a asp-controller="Orders" asp-action="Index" class="btn btn-dark btn-sm">
+                    Siparişlere Git
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Categories -->
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+        <div>
+            <h2 class="section-title mb-1">Öne Çıkan Kategoriler</h2>
+            <p class="section-subtitle mb-0">
+                Teknoloji ürünlerini kategorilere göre keşfet.
+            </p>
+        </div>
+
+        <a asp-controller="Categories" asp-action="Index" class="btn btn-outline-dark">
+            Tüm Kategoriler
+        </a>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <a asp-controller="Products" asp-action="Index" asp-route-categoryId="3" class="text-decoration-none">
+                <div class="category-tile">
+                    <img src="https://img.magnific.com/free-vector/smart-phone-flat-style_78370-4084.jpg?semt=ais_hybrid&w=740&q=80" alt="Telefonlar">
+                    <div class="category-content">
+                        <h5>Telefonlar</h5>
+                        <p class="mb-0">Yeni nesil akıllı cihazlar</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a asp-controller="Products" asp-action="Index" asp-route-categoryId="5" class="text-decoration-none">
+                <div class="category-tile">
+                    <img src="https://img.magnific.com/free-vector/gaming-disorder-abstract-concept-vector-illustration-video-game-addict-decreased-attention-span-gaming-addiction-behavioral-disorder-mental-health-medical-condition-abstract-metaphor_335657-2264.jpg?semt=ais_hybrid&w=740&q=80" alt="Gaming">
+                    <div class="category-content">
+                        <h5>Gaming</h5>
+                        <p class="mb-0">Oyuncular için güçlü ekipmanlar</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a asp-controller="Products" asp-action="Index" asp-route-categoryId="7" class="text-decoration-none">
+                <div class="category-tile">
+                    <img src="https://kit8.net/wp-content/uploads/2020/12/Smart_watch_preview@2x-1.jpg" alt="Akıllı Saatler">
+                    <div class="category-content">
+                        <h5>Akıllı Saatler</h5>
+                        <p class="mb-0">Stil ve teknolojiyi birleştir</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Promo Area -->
+    <div class="row g-4 mb-5">
+        <div class="col-lg-7">
+            <div class="mini-banner h-100">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h3 class="fw-bold mb-3">Ürünlerini daha düzenli yönet.</h3>
+                        <p class="text-muted mb-4">
+                            Kategori ilişkili ürün yapısı sayesinde ürünleri daha okunabilir,
+                            yönetilebilir ve filtrelenebilir şekilde listeleyebilirsin.
+                        </p>
+
+                        <a asp-controller="Products" asp-action="Create" class="btn btn-dark">
+                            Yeni Ürün Ekle
+                        </a>
+                    </div>
+
+                    <div class="col-md-4 text-center d-none d-md-block">
+                        <i class="bi bi-box2-heart" style="font-size: 110px; color: #111827;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="mini-banner mini-banner-dark h-100">
+                <h3 class="fw-bold mb-3">Admin panel hazır.</h3>
+                <p class="text-white-50 mb-4">
+                    CRUD işlemlerini admin panel üzerinden daha kontrollü şekilde yönetebilirsin.
+                </p>
+
+                <a asp-controller="Admin" asp-action="Index" class="btn btn-light">
+                    <i class="bi bi-lock me-1"></i>
+                    Admin Paneline Git
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <div class="text-center mb-4">
+        <h2 class="section-title">Proje Akışı</h2>
+        <p class="section-subtitle">
+            Bu e-ticaret projesindeki temel kullanım akışı.
+        </p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="d-flex gap-3">
+                    <div class="step-number">1</div>
+                    <div>
+                        <h5 class="fw-bold">Kategori oluştur</h5>
+                        <p class="text-muted mb-0">
+                            Ürünleri gruplamak için kategori, görsel ve slogan bilgilerini ekle.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="d-flex gap-3">
+                    <div class="step-number">2</div>
+                    <div>
+                        <h5 class="fw-bold">Ürün ekle</h5>
+                        <p class="text-muted mb-0">
+                            Ürünü fiyatı, görseli ve bağlı olduğu kategori ile kaydet.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="d-flex gap-3">
+                    <div class="step-number">3</div>
+                    <div>
+                        <h5 class="fw-bold">Sipariş oluştur</h5>
+                        <p class="text-muted mb-0">
+                            Müşteri ve ürün ilişkisini kullanarak sipariş kaydı oluştur.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

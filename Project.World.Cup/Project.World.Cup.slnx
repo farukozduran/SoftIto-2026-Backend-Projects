@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Project.World.Cup.Data/Project.World.Cup.Data.csproj" />
+  <Project Path="Project.World.Cup.Model/Project.World.Cup.Model.csproj" />
+  <Project Path="Project.World.Cup.UI/Project.World.Cup.UI.csproj" />
+</Solution>

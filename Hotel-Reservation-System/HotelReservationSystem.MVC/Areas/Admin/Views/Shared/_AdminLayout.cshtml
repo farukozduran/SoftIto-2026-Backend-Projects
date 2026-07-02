@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Yönetim Paneli</title>
+    <!-- Bootstrap CSS ve İkonlar -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <style>
+            .sidebar-link:hover {
+                background-color: rgba(255,255,255,0.1);
+                border-radius: 5px;
+            }
+    </style>
+</head>
+<body>
+    <div class="d-flex">
+
+        <!-- Sol Menü (Sidebar) -->
+        <div class="bg-dark text-white p-3 vh-100 sticky-top shadow" style="width: 250px;">
+            <h4 class="text-center py-2 mb-4 border-bottom text-warning">SoftIto Hotel</h4>
+
+            <ul class="nav flex-column gap-2 fs-6">
+                <li class="nav-item">
+                    <a class="nav-link text-white sidebar-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                        <i class="bi bi-speedometer2 me-2"></i> Ana Sayfa (Dashboard)
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white sidebar-link" asp-area="Admin" asp-controller="Hotels" asp-action="Index">
+                        <i class="bi bi-building me-2"></i> Oteller
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white sidebar-link" asp-area="Admin" asp-controller="Rooms" asp-action="Index">
+                        <i class="bi bi-door-closed me-2"></i> Odalar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white sidebar-link" asp-area="Admin" asp-controller="RoomTypes" asp-action="Index">
+                        <i class="bi bi-tags me-2"></i> Oda Tipleri
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white sidebar-link" asp-area="Admin" asp-controller="Guests" asp-action="Index">
+                        <i class="bi bi-people me-2"></i> Misafirler
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white sidebar-link" asp-area="Admin" asp-controller="Managers" asp-action="Index">
+                        <i class="bi bi-person-badge me-2"></i> Yöneticiler
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white sidebar-link" asp-area="Admin" asp-controller="Reservations" asp-action="Index">
+                        <i class="bi bi-calendar-check me-2"></i> Rezervasyonlar
+                    </a>
+                </li>
+
+                <li class="nav-item mt-5">
+                    <a class="nav-link text-info sidebar-link" asp-area="" asp-controller="Home" asp-action="Index">
+                        <i class="bi bi-globe me-2"></i> Site Vitrinine Dön
+                    </a>
+                </li>
+                <!-- Login yapısını kurduğunuzda buradaki href veya asp-action alanlarını güncelleyebilirsiniz -->
+                <li class="nav-item">
+                    <!-- Href yerine asp- Tag Helper'larını kullanıyoruz -->
+                    <a class="nav-link text-danger sidebar-link" asp-area="" asp-controller="Account" asp-action="Logout">
+                        <i class="bi bi-box-arrow-right me-2"></i> Çıkış Yap
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Ana İçerik Alanı -->
+        <div class="flex-grow-1 p-4 bg-light overflow-auto" style="height: 100vh;">
+            @RenderBody()
+        </div>
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    @* Sayfalarda Validation veya ekstra script kullanırsak diye bu satır önemli *@
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

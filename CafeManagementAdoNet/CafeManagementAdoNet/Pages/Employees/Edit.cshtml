@@ -1,0 +1,76 @@
+﻿@page "{id:int}"
+@model CafeManagementAdoNet.Pages.Employees.EditModel
+
+@{
+    ViewData["Title"] = "Çalışan Düzenle";
+}
+
+<div class="cafe-page">
+    <div class="cafe-container">
+
+        <section class="cafe-hero">
+            <div>
+                <div class="cafe-kicker">Çalışan İşlemleri</div>
+                <h1>Çalışan Düzenle</h1>
+                <p>Seçili çalışanın bilgilerini güncelle.</p>
+            </div>
+
+            <div class="cafe-hero-actions">
+                <a asp-page="Index" class="cafe-btn cafe-btn-soft">Çalışanlara Dön</a>
+            </div>
+        </section>
+
+        <section class="cafe-card">
+            <div class="cafe-card-header">
+                <div>
+                    <h2 class="cafe-card-title">@Model.Employee.FullName</h2>
+                    <p class="cafe-card-subtitle">Çalışan kaydını düzenliyorsun.</p>
+                </div>
+            </div>
+
+            <div class="cafe-card-body">
+                <form method="post">
+                    <input type="hidden" asp-for="Employee.EmployeeId" />
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="cafe-form-grid">
+                        <div class="cafe-form-group">
+                            <label asp-for="Employee.FullName" class="cafe-label">Ad Soyad</label>
+                            <input asp-for="Employee.FullName" class="cafe-input" />
+                            <span asp-validation-for="Employee.FullName" class="text-danger cafe-validation"></span>
+                        </div>
+
+                        <div class="cafe-form-group">
+                            <label asp-for="Employee.Position" class="cafe-label">Pozisyon</label>
+                            <input asp-for="Employee.Position" class="cafe-input" />
+                            <span asp-validation-for="Employee.Position" class="text-danger cafe-validation"></span>
+                        </div>
+
+                        <div class="cafe-form-group">
+                            <label asp-for="Employee.Salary" class="cafe-label">Maaş</label>
+                            <input asp-for="Employee.Salary" class="cafe-input" />
+                            <span asp-validation-for="Employee.Salary" class="text-danger cafe-validation"></span>
+                        </div>
+
+                        <div class="cafe-form-group">
+                            <label asp-for="Employee.StartDate" class="cafe-label">Başlangıç Tarihi</label>
+                            <input asp-for="Employee.StartDate" type="date" class="cafe-input" />
+                            <span asp-validation-for="Employee.StartDate" class="text-danger cafe-validation"></span>
+                        </div>
+                    </div>
+
+                    <div class="cafe-form-actions">
+                        <a asp-page="Index" class="cafe-btn cafe-btn-outline">Vazgeç</a>
+                        <button type="submit" class="cafe-btn cafe-btn-primary">Güncelle</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

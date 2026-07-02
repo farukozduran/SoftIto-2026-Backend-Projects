@@ -1,0 +1,43 @@
+﻿@model IEnumerable<HotelReservationSystem.Entity.Entities.Guest>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h2>Misafirler</h2>
+        <a asp-action="Crup" class="btn btn-primary">Yeni Misafir Ekle</a>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Profil</th>
+                <th>T.C. Kimlik</th>
+                <th>Ad Soyad</th>
+                <th>Telefon</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle text-center">
+                            @if (!string.IsNullOrEmpty(item.Photo))
+                            {
+                                <img src="@item.Photo" style="width:60px; border-radius:50%;" />
+                            }
+                        </td>
+                        <td class="align-middle">@item.IdentityNumber</td>
+                        <td class="align-middle">@item.FirstName @item.LastName</td>
+                        <td class="align-middle">@item.Phone</td>
+                        <td class="align-middle">
+                            <a asp-action="Crup" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Düzenle</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

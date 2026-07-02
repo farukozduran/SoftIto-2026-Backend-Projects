@@ -1,0 +1,37 @@
+﻿@model Rent.App.Models.Customer
+
+@{
+    ViewData["Title"] = "Müşteri Sil";
+}
+
+<div class="container py-5">
+    <div class="card shadow border-0 rounded-4">
+        <div class="card-header bg-danger text-white rounded-top-4">
+            <h3 class="mb-0">Müşteri Silme Onayı</h3>
+        </div>
+
+        <div class="card-body p-4">
+            <p class="fs-5">Bu müşteriyi silmek istediğine emin misin?</p>
+
+            <dl class="row">
+                <dt class="col-sm-3">Ad Soyad</dt>
+                <dd class="col-sm-9">@Model.CustomerName @Model.CustomerSurname</dd>
+
+                <dt class="col-sm-3">Telefon</dt>
+                <dd class="col-sm-9">@Model.Phone</dd>
+
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">@Model.Email</dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="CustomerId" />
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-outline-secondary">İptal</a>
+                    <button type="submit" class="btn btn-danger">Evet, Sil</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

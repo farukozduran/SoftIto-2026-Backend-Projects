@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Project.World.Cup.Model.Group>
+
+@{
+    ViewData["Title"] = "Gruplar";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+}
+
+<div class="container entity-page">
+    <div class="entity-hero">
+        <h1>Dünya Kupası Grupları</h1>
+        <p>
+            Turnuvadaki grup yapısını, grup adlarını ve bağlı oldukları turnuva bilgisini bu ekrandan takip edebilirsin.
+        </p>
+    </div>
+
+    <div class="entity-toolbar">
+        <div class="search-box">
+            <input type="text"
+                   class="form-control entity-search"
+                   placeholder="Grup ara... örn: A, B, C" />
+        </div>
+
+        <a asp-action="Create" class="create-btn">
+            + Yeni Grup Ekle
+        </a>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="entity-grid">
+            @foreach (var item in Model)
+            {
+                <div class="entity-card"
+                     data-search="@($"{item.GroupName} {item.Tournament?.TournamentName}".ToLower())">
+
+                    <div class="entity-card-content">
+                        <div class="entity-header">
+                            <div class="entity-icon-box">
+                                <span class="entity-icon-placeholder">Grup</span>
+                            </div>
+
+                            <div>
+                                <h3 class="entity-title">Grup @item.GroupName</h3>
+                                <span class="entity-badge">
+                                    @(item.Tournament == null ? "Turnuva belirtilmedi" : item.Tournament.TournamentName)
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="entity-info">
+                            <small>Turnuva</small>
+                            <span>
+                                @(item.Tournament == null ? "Belirtilmedi" : item.Tournament.TournamentName)
+                            </span>
+                        </div>
+
+                        <div class="entity-info">
+                            <small>Takım Sayısı</small>
+                            <span>
+                                @(item.GroupTeams == null ? 0 : item.GroupTeams.Count)
+                            </span>
+                        </div>
+
+                        <div class="entity-actions">
+                            <a asp-action="Details"
+                               asp-route-id="@item.GroupId"
+                               class="btn-detail">
+                                Detay
+                            </a>
+
+                            <a asp-action="Edit"
+                               asp-route-id="@item.GroupId"
+                               class="btn-edit">
+                                Düzenle
+                            </a>
+
+                            <a asp-action="Delete"
+                               asp-route-id="@item.GroupId"
+                               class="btn-delete">
+                                Sil
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <h4>Henüz grup eklenmemiş.</h4>
+            <p>İlk grubu ekleyerek takımları gruplara yerleştirmeye başlayabilirsin.</p>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="~/js/script.js" asp-append-version="true"></script>
+}

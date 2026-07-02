@@ -1,0 +1,90 @@
+﻿@model Project.World.Cup.Model.Group
+
+@{
+    ViewData["Title"] = "Yeni Grup Ekle";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+}
+
+<div class="container entity-page">
+    <div class="entity-hero">
+        <h1>Yeni Grup Ekle</h1>
+        <p>
+            Dünya Kupası turnuvası için yeni bir grup oluşturabilir ve bu grubu ilgili turnuvaya bağlayabilirsin.
+        </p>
+    </div>
+
+    <div class="form-shell">
+        <div class="form-card">
+            <div class="form-card-header">
+                <div>
+                    <span class="form-kicker">Grup Yönetimi</span>
+                    <h2>Grup Bilgileri</h2>
+                    <p>Grup adını ve bağlı olduğu turnuvayı seçerek yeni grup kaydı oluştur.</p>
+                </div>
+
+                <div class="form-icon-box">
+                    <span>🏆</span>
+                </div>
+            </div>
+
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-group-modern">
+                    <label asp-for="GroupName">Grup Adı</label>
+                    <input asp-for="GroupName"
+                           class="form-control modern-input"
+                           placeholder="Örn: A, B, C, D" />
+                    <span asp-validation-for="GroupName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="TournamentId">Turnuva</label>
+                    <select asp-for="TournamentId"
+                            class="form-control modern-input"
+                            asp-items="ViewBag.TournamentId">
+                        <option value="">Turnuva seçiniz</option>
+                    </select>
+                    <span asp-validation-for="TournamentId" class="text-danger"></span>
+                </div>
+
+                <div class="form-actions-modern">
+                    <a asp-action="Index" class="btn-back-modern">
+                        Listeye Dön
+                    </a>
+
+                    <button type="submit" class="btn-save-modern">
+                        Grubu Kaydet
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-info-card">
+            <h3>Bilgilendirme</h3>
+            <p>
+                Gruplar, takımların turnuva içindeki yerleşimini belirler. Daha sonra
+                <strong>GroupTeams</strong> üzerinden takımları bu gruplara bağlayabilirsin.
+            </p>
+
+            <div class="info-mini-list">
+                <span>Grup A</span>
+                <span>Grup B</span>
+                <span>Grup C</span>
+                <span>Grup D</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/script.js" asp-append-version="true"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

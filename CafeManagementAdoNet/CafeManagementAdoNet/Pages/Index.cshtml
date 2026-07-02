@@ -1,0 +1,311 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<div class="cafe-page">
+    <div class="cafe-container">
+
+        <section class="cafe-hero">
+            <div>
+                <div class="cafe-kicker">☕ Cafe Management</div>
+                <h1>Hoş Geldiniz</h1>
+                <p>
+                    ADO.NET ve Razor Pages kullanılarak hazırlanmış bu yönetim paneliyle
+                    ürünleri, çalışanları ve giderleri kolayca yönetebilirsin.
+                </p>
+            </div>
+
+            <div class="cafe-hero-actions">
+                <a asp-page="/Products/Index" class="cafe-btn cafe-btn-primary">
+                    Ürünleri Gör
+                </a>
+                <a asp-page="/Expenses/Index" class="cafe-btn cafe-btn-soft">
+                    Giderleri İncele
+                </a>
+            </div>
+        </section>
+
+        <section class="home-panel-grid">
+
+            <a asp-page="/Products/Index" class="home-panel-card">
+                <div class="home-panel-icon">▣</div>
+                <div>
+                    <h3>Ürün Yönetimi</h3>
+                    <p>
+                        Kafedeki ürünleri listele, yeni ürün ekle, stok ve fiyat bilgilerini düzenle.
+                    </p>
+                </div>
+                <span class="home-panel-link">Ürünlere Git →</span>
+            </a>
+
+            <a asp-page="/Employees/Index" class="home-panel-card">
+                <div class="home-panel-icon">◉</div>
+                <div>
+                    <h3>Çalışan Yönetimi</h3>
+                    <p>
+                        Çalışan kayıtlarını görüntüle, yeni personel ekle ve mevcut bilgileri güncelle.
+                    </p>
+                </div>
+                <span class="home-panel-link">Çalışanlara Git →</span>
+            </a>
+
+            <a asp-page="/Expenses/Index" class="home-panel-card">
+                <div class="home-panel-icon">₺</div>
+                <div>
+                    <h3>Gider Takibi</h3>
+                    <p>
+                        Kafeye ait giderleri kaydet, düzenle ve finansal kayıtları düzenli tut.
+                    </p>
+                </div>
+                <span class="home-panel-link">Giderlere Git →</span>
+            </a>
+
+        </section>
+
+        <section class="cafe-card home-info-card">
+            <div class="cafe-card-header">
+                <div>
+                    <h2 class="cafe-card-title">Panel Özeti</h2>
+                    <p class="cafe-card-subtitle">
+                        Bu uygulama üç bağımsız tablo üzerinden temel CRUD işlemlerini gösterir.
+                    </p>
+                </div>
+            </div>
+
+            <div class="cafe-card-body">
+                <div class="home-feature-grid">
+
+                    <div class="home-feature-item">
+                        <span class="home-feature-number">01</span>
+                        <h4>ADO.NET Kullanımı</h4>
+                        <p>
+                            Veritabanı işlemleri SqlConnection, SqlCommand ve SqlDataReader ile yapılır.
+                        </p>
+                    </div>
+
+                    <div class="home-feature-item">
+                        <span class="home-feature-number">02</span>
+                        <h4>Razor Pages Yapısı</h4>
+                        <p>
+                            Her sayfanın kendi .cshtml ve .cshtml.cs dosyası bulunur.
+                        </p>
+                    </div>
+
+                    <div class="home-feature-item">
+                        <span class="home-feature-number">03</span>
+                        <h4>Bağımsız Tablolar</h4>
+                        <p>
+                            Products, Employees ve Expenses tabloları birbirinden bağımsız çalışır.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <section class="home-report-section">
+
+            <div class="home-report-heading">
+                <div>
+                    <div class="cafe-kicker">Raporlama</div>
+                    <h2>Genel Raporlar</h2>
+                    <p>Ürün, çalışan ve gider tablolarından alınan özet raporlar.</p>
+                </div>
+            </div>
+
+            <div class="home-report-grid">
+
+                <!-- Products Report 1 -->
+                <div class="home-report-card">
+                    <div class="home-report-card-header">
+                        <div>
+                            <h3>En Pahalı Ürünler</h3>
+                            <p>Fiyatı en yüksek ilk 5 ürün.</p>
+                        </div>
+                        <span class="home-report-tag">Products</span>
+                    </div>
+
+                    @if (Model.TopPriceProducts.Any())
+                    {
+                        <div class="home-report-list">
+                            @foreach (var item in Model.TopPriceProducts)
+                            {
+                                <div class="home-report-row">
+                                    <div>
+                                        <strong>@item.ProductName</strong>
+                                        <span>@item.Category</span>
+                                    </div>
+                                    <b>@item.Price.ToString("N2") ₺</b>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="home-report-empty">Ürün kaydı bulunmuyor.</div>
+                    }
+                </div>
+
+                <!-- Products Report 2 -->
+                <div class="home-report-card">
+                    <div class="home-report-card-header">
+                        <div>
+                            <h3>Stoğu En Az Ürünler</h3>
+                            <p>Stok miktarı en düşük ilk 5 ürün.</p>
+                        </div>
+                        <span class="home-report-tag">Products</span>
+                    </div>
+
+                    @if (Model.LowStockProducts.Any())
+                    {
+                        <div class="home-report-list">
+                            @foreach (var item in Model.LowStockProducts)
+                            {
+                                <div class="home-report-row">
+                                    <div>
+                                        <strong>@item.ProductName</strong>
+                                        <span>@item.Category</span>
+                                    </div>
+                                    <b>@item.Stock adet</b>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="home-report-empty">Ürün kaydı bulunmuyor.</div>
+                    }
+                </div>
+
+                <!-- Employees Report 1 -->
+                <div class="home-report-card">
+                    <div class="home-report-card-header">
+                        <div>
+                            <h3>Pozisyona Göre Çalışan</h3>
+                            <p>Her pozisyondaki çalışan sayısı.</p>
+                        </div>
+                        <span class="home-report-tag">Employees</span>
+                    </div>
+
+                    @if (Model.EmployeePositionReports.Any())
+                    {
+                        <div class="home-report-list">
+                            @foreach (var item in Model.EmployeePositionReports)
+                            {
+                                <div class="home-report-row">
+                                    <div>
+                                        <strong>@item.Position</strong>
+                                        <span>Pozisyon</span>
+                                    </div>
+                                    <b>@item.EmployeeCount kişi</b>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="home-report-empty">Çalışan kaydı bulunmuyor.</div>
+                    }
+                </div>
+
+                <!-- Employees Report 2 -->
+                <div class="home-report-card">
+                    <div class="home-report-card-header">
+                        <div>
+                            <h3>En Yüksek Maaşlar</h3>
+                            <p>Maaşı en yüksek ilk 5 çalışan.</p>
+                        </div>
+                        <span class="home-report-tag">Employees</span>
+                    </div>
+
+                    @if (Model.TopSalaryEmployees.Any())
+                    {
+                        <div class="home-report-list">
+                            @foreach (var item in Model.TopSalaryEmployees)
+                            {
+                                <div class="home-report-row">
+                                    <div>
+                                        <strong>@item.FullName</strong>
+                                        <span>@item.Position</span>
+                                    </div>
+                                    <b>@item.Salary.ToString("N2") ₺</b>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="home-report-empty">Çalışan kaydı bulunmuyor.</div>
+                    }
+                </div>
+
+                <!-- Expenses Report 1 -->
+                <div class="home-report-card">
+                    <div class="home-report-card-header">
+                        <div>
+                            <h3>Aylık Toplam Gider</h3>
+                            <p>Son 6 aya göre toplam gider tutarı.</p>
+                        </div>
+                        <span class="home-report-tag">Expenses</span>
+                    </div>
+
+                    @if (Model.MonthlyExpenseReports.Any())
+                    {
+                        <div class="home-report-list">
+                            @foreach (var item in Model.MonthlyExpenseReports)
+                            {
+                                <div class="home-report-row">
+                                    <div>
+                                        <strong>@item.Month.ToString("00").@item.Year</strong>
+                                        <span>Aylık gider</span>
+                                    </div>
+                                    <b>@item.TotalAmount.ToString("N2") ₺</b>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="home-report-empty">Gider kaydı bulunmuyor.</div>
+                    }
+                </div>
+
+                <!-- Expenses Report 2 -->
+                <div class="home-report-card">
+                    <div class="home-report-card-header">
+                        <div>
+                            <h3>En Yüksek Giderler</h3>
+                            <p>Tutarı en yüksek ilk 5 gider kaydı.</p>
+                        </div>
+                        <span class="home-report-tag">Expenses</span>
+                    </div>
+
+                    @if (Model.TopExpenseReports.Any())
+                    {
+                        <div class="home-report-list">
+                            @foreach (var item in Model.TopExpenseReports)
+                            {
+                                <div class="home-report-row">
+                                    <div>
+                                        <strong>@item.ExpenseTitle</strong>
+                                        <span>@item.ExpenseDate.ToString("dd.MM.yyyy")</span>
+                                    </div>
+                                    <b>@item.Amount.ToString("N2") ₺</b>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="home-report-empty">Gider kaydı bulunmuyor.</div>
+                    }
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+</div>

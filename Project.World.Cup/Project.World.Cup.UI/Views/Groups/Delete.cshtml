@@ -1,0 +1,74 @@
+﻿@model Project.World.Cup.Model.Group
+
+@{
+    ViewData["Title"] = "Grup Sil";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+}
+
+<div class="container entity-page">
+    <div class="entity-hero danger-hero">
+        <h1>Grup Sil</h1>
+        <p>
+            Seçili grup kaydını silmek üzeresin. Bu işlemden önce grubun bağlı olduğu turnuva ve ilişkili kayıtları kontrol etmelisin.
+        </p>
+    </div>
+
+    <div class="delete-shell">
+        <div class="delete-card">
+            <div class="delete-icon">
+                !
+            </div>
+
+            <div class="delete-content">
+                <span class="form-kicker danger-text">Silme Onayı</span>
+                <h2>Grup @Model.GroupName silinsin mi?</h2>
+                <p>
+                    Bu işlem geri alınamaz. Eğer bu gruba bağlı takım veya maç kayıtları varsa,
+                    veritabanı ilişkilerinden dolayı silme işlemi hata verebilir.
+                </p>
+
+                <div class="delete-details">
+                    <div class="delete-detail-item">
+                        <small>Grup Adı</small>
+                        <span>@Model.GroupName</span>
+                    </div>
+
+                    <div class="delete-detail-item">
+                        <small>Turnuva</small>
+                        <span>
+                            @(Model.Tournament == null ? "Belirtilmedi" : Model.Tournament.TournamentName)
+                        </span>
+                    </div>
+
+                    <div class="delete-detail-item">
+                        <small>Grup ID</small>
+                        <span>@Model.GroupId</span>
+                    </div>
+                </div>
+
+                <form asp-action="Delete" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" asp-for="GroupId" />
+
+                    <div class="form-actions-modern">
+                        <a asp-action="Index" class="btn-back-modern">
+                            Vazgeç
+                        </a>
+
+                        <button type="submit" class="btn-delete-modern">
+                            Evet, Grubu Sil
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/script.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,45 @@
+﻿@model HotelReservationSystem.MVC.Models.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Giriş Yap";
+}
+
+<div class="row justify-content-center my-5">
+    <div class="col-md-6 col-lg-4">
+        <div class="text-center mb-4">
+            <div class="mb-3">
+                <i class="fa-solid fa-user-circle fa-4x text-primary" style="color: #1e3c72 !important;"></i>
+            </div>
+            <h3 class="fw-bold">Hoş Geldiniz</h3>
+            <p class="text-muted">Lütfen hesabınıza giriş yapın</p>
+        </div>
+
+        <form asp-action="Login" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Username" class="form-control" id="floatingUsername" placeholder="Kullanıcı Adı" />
+                <label for="floatingUsername"><i class="fa-solid fa-user me-2 text-muted"></i>Kullanıcı Adı</label>
+                <span asp-validation-for="Username" class="text-danger" style="font-size: 0.85rem;"></span>
+            </div>
+
+            <div class="form-floating mb-4">
+                <input asp-for="Password" class="form-control" id="floatingPassword" placeholder="Şifre" />
+                <label for="floatingPassword"><i class="fa-solid fa-lock me-2 text-muted"></i>Şifre</label>
+                <span asp-validation-for="Password" class="text-danger" style="font-size: 0.85rem;"></span>
+            </div>
+
+            <button type="submit" class="btn text-white w-100 py-2 fw-bold" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); border: none; border-radius: 8px;">
+                GİRİŞ YAP <i class="fa-solid fa-arrow-right-to-bracket ms-2"></i>
+            </button>
+
+            <div class="text-center mt-4">
+                <p class="text-muted">
+                    Hesabınız yok mu?
+                    <a href="@Url.Action("Register", "Account")" class="text-decoration-none fw-bold" style="color: #2a5298; cursor: pointer;">Hemen Kayıt Olun</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+

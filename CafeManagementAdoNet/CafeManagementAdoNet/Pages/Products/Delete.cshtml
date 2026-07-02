@@ -1,0 +1,64 @@
+﻿@page "{id:int}"
+@model CafeManagementAdoNet.Pages.Products.DeleteModel
+
+@{
+    ViewData["Title"] = "Ürün Sil";
+}
+
+<div class="cafe-page">
+    <div class="cafe-container">
+
+        <section class="cafe-hero">
+            <div>
+                <div class="cafe-kicker">Silme İşlemi</div>
+                <h1>Ürün Sil</h1>
+                <p>Bu işlem seçili ürün kaydını veritabanından kaldırır.</p>
+            </div>
+
+            <div class="cafe-hero-actions">
+                <a asp-page="Index" class="cafe-btn cafe-btn-soft">Ürünlere Dön</a>
+            </div>
+        </section>
+
+        <section class="cafe-card">
+            <div class="cafe-card-body">
+                <div class="cafe-delete-panel">
+                    <h3>Bu ürünü silmek istediğine emin misin?</h3>
+                    <p class="cafe-muted mb-0">Silme işleminden sonra bu kayıt listede görünmez.</p>
+                </div>
+
+                <dl class="cafe-detail-list">
+                    <div class="cafe-detail-row">
+                        <dt>Ürün Adı</dt>
+                        <dd>@Model.Product.ProductName</dd>
+                    </div>
+
+                    <div class="cafe-detail-row">
+                        <dt>Kategori</dt>
+                        <dd>@Model.Product.Category</dd>
+                    </div>
+
+                    <div class="cafe-detail-row">
+                        <dt>Fiyat</dt>
+                        <dd>@Model.Product.Price.ToString("N2") ₺</dd>
+                    </div>
+
+                    <div class="cafe-detail-row">
+                        <dt>Stok</dt>
+                        <dd>@Model.Product.Stock adet</dd>
+                    </div>
+                </dl>
+
+                <form method="post">
+                    <input type="hidden" asp-for="Product.ProductId" />
+
+                    <div class="cafe-form-actions">
+                        <a asp-page="Index" class="cafe-btn cafe-btn-outline">Vazgeç</a>
+                        <button type="submit" class="cafe-btn cafe-btn-danger">Sil</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </div>
+</div>

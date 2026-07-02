@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Project.World.Cup.Model.Tournament>
+
+@{
+    ViewData["Title"] = "Turnuvalar";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+}
+
+<div class="container entity-page">
+    <div class="entity-hero">
+        <h1>Dünya Kupası Turnuvaları</h1>
+        <p>
+            Turnuva yılını, başlangıç ve bitiş tarihlerini bu ekrandan yönetebilirsin.
+        </p>
+    </div>
+
+    <div class="entity-toolbar">
+        <div class="search-box">
+            <input type="text"
+                   class="form-control entity-search"
+                   placeholder="Turnuva ara... örn: World Cup 2026" />
+        </div>
+
+        <a asp-action="Create" class="create-btn">
+            + Yeni Turnuva Ekle
+        </a>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="entity-grid">
+            @foreach (var item in Model)
+            {
+                <div class="entity-card"
+                     data-search="@($"{item.TournamentName} {item.Year}".ToLower())">
+
+                    <div class="entity-card-content">
+                        <div class="entity-header">
+                            <div class="entity-icon-box">
+                                <span class="entity-icon-placeholder">🏆</span>
+                            </div>
+
+                            <div>
+                                <h3 class="entity-title">@item.TournamentName</h3>
+                                <span class="entity-badge">@item.Year</span>
+                            </div>
+                        </div>
+
+                        <div class="entity-info">
+                            <small>Başlangıç Tarihi</small>
+                            <span>
+                                @(item.StartDate.HasValue ? item.StartDate.Value.ToString("dd.MM.yyyy") : "Belirtilmedi")
+                            </span>
+                        </div>
+
+                        <div class="entity-info">
+                            <small>Bitiş Tarihi</small>
+                            <span>
+                                @(item.EndDate.HasValue ? item.EndDate.Value.ToString("dd.MM.yyyy") : "Belirtilmedi")
+                            </span>
+                        </div>
+
+                        <div class="entity-actions">
+                            <a asp-action="Details"
+                               asp-route-id="@item.TournamentId"
+                               class="btn-detail">
+                                Detay
+                            </a>
+
+                            <a asp-action="Edit"
+                               asp-route-id="@item.TournamentId"
+                               class="btn-edit">
+                                Düzenle
+                            </a>
+
+                            <a asp-action="Delete"
+                               asp-route-id="@item.TournamentId"
+                               class="btn-delete">
+                                Sil
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <h4>Henüz turnuva eklenmemiş.</h4>
+            <p>İlk turnuvayı ekleyerek Dünya Kupası takip sistemini başlatabilirsin.</p>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="~/js/script.js" asp-append-version="true"></script>
+}

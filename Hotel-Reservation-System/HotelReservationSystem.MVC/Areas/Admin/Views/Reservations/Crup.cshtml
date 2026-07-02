@@ -1,0 +1,41 @@
+﻿@model HotelReservationSystem.MVC.Models.ViewModels.ReservationViewModel
+
+<div class="container mt-4">
+    <h2>@(Model.Reservation.Id != 0 ? "Rezervasyon Düzenle" : "Yeni Rezervasyon")</h2><hr />
+    <form asp-action="Crup" method="post">
+        <input type="hidden" asp-for="Reservation.Id" />
+        <div class="col-md-6">
+
+            <div class="mb-3">
+                <label asp-for="Reservation.GuestId">Misafir</label>
+                <select asp-for="Reservation.GuestId" asp-items="Model.GuestList" class="form-select">
+                    <option disabled selected>-- Misafir Seçin --</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Reservation.RoomId">Oda</label>
+                <select asp-for="Reservation.RoomId" asp-items="Model.RoomList" class="form-select">
+                    <option disabled selected>-- Oda Seçin --</option>
+                </select>
+            </div>
+
+            <div class="mb-3"><label asp-for="Reservation.CheckInDate">Giriş Tarihi</label><input asp-for="Reservation.CheckInDate" class="form-control" type="date" /></div>
+            <div class="mb-3"><label asp-for="Reservation.CheckOutDate">Çıkış Tarihi</label><input asp-for="Reservation.CheckOutDate" class="form-control" type="date" /></div>
+            <div class="mb-3"><label asp-for="Reservation.TotalAmount">Toplam Tutar</label><input asp-for="Reservation.TotalAmount" class="form-control" type="number" step="0.01" /></div>
+
+            <div class="mb-3">
+                <label asp-for="Reservation.Status">Durum</label>
+                <select asp-for="Reservation.Status" class="form-select">
+                    <option value="Onay Bekliyor">Onay Bekliyor</option>
+                    <option value="Onaylandı">Onaylandı</option>
+                    <option value="İptal Edildi">İptal Edildi</option>
+                    <option value="Tamamlandı">Tamamlandı</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success">Kaydet</button>
+            <a asp-action="Index" class="btn btn-secondary">İptal</a>
+        </div>
+    </form>
+</div>

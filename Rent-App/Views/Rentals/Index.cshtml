@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Rent.App.Models.Rental>
+
+@{
+    ViewData["Title"] = "Kiralamalar";
+    bool isAdmin = ViewData["IsAdmin"] != null && (bool)ViewData["IsAdmin"];
+}
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Kiralama Kayıtları</h2>
+        @if (!isAdmin)
+        {
+            <a asp-action="Create" class="btn btn-success">Yeni Kiralama</a>
+        }
+    </div>
+    <form asp-action="Index" method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text"
+                   name="search"
+                   value="@ViewData["CurrentSearch"]"
+                   class="form-control"
+                   placeholder="Search by customer, car or plate..." />
+
+            <button type="submit" class="btn btn-success">
+                Search
+            </button>
+
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                Clear
+            </a>
+        </div>
+    </form>
+
+    <div class="row g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6">
+                <div class="card shadow-sm border-0 rounded-4 h-100">
+                    <div class="card-body">
+                        <h5 class="fw-bold">
+                            @item.Customer.CustomerName @item.Customer.CustomerSurname
+                        </h5>
+
+                        <p class="mb-1">
+                            <strong>Araç:</strong> @item.Car.Brand @item.Car.Model
+                        </p>
+
+                        <p class="mb-1">
+                            <strong>Plaka:</strong> @item.Car.Plate
+                        </p>
+
+                        <p class="mb-1">
+                            <strong>Tarih:</strong> @item.RentDate - @item.ReturnDate
+                        </p>
+
+                        <h5 class="text-success mt-3">
+                            @(item.TotalPrice == null ? "Ücret girilmedi" : item.TotalPrice + " ₺")
+                        </h5>
+                    </div>
+
+                    <div class="card-footer bg-white border-0 d-flex gap-2">
+                        @if (isAdmin)
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.RentalId" class="btn btn-outline-warning w-50">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.RentalId" class="btn btn-outline-danger w-50">Delete</a>
+                        }
+                        
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

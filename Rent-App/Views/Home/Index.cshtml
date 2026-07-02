@@ -1,0 +1,168 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="container py-5" data-aos="fade-up">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold mt-3">Manage Your Rental Business Easily</h2>
+        <p class="text-muted w-75 mx-auto">
+            Manage cars, customers and rental records from a single panel.
+            A fast, organized and modern Rent a Car management system.
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow border-0 rounded-4 text-center p-4">
+                <div class="mb-3">
+                    <i class="fa-solid fa-car-side fa-3x text-primary"></i>
+                </div>
+
+                <h4 class="fw-bold">Cars</h4>
+
+                <p class="text-muted">
+                    List vehicles, add new cars, edit car details or remove them from the system.
+                </p>
+
+                <a asp-controller="Cars" asp-action="Index" class="btn btn-outline-primary mt-auto">
+                    View Cars
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow border-0 rounded-4 text-center p-4">
+                <div class="mb-3">
+                    <i class="fa-solid fa-users fa-3x text-success"></i>
+                </div>
+
+                <h4 class="fw-bold">Customers</h4>
+
+                <p class="text-muted">
+                    View customer details, create new customers and manage contact information.
+                </p>
+
+                <a asp-controller="Customers" asp-action="Index" class="btn btn-outline-success mt-auto">
+                    View Customers
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow border-0 rounded-4 text-center p-4">
+                <div class="mb-3">
+                    <i class="fa-solid fa-key fa-3x text-warning"></i>
+                </div>
+
+                <h4 class="fw-bold">Rentals</h4>
+
+                <p class="text-muted">
+                    Track which customer rented which car, rental dates and total prices.
+                </p>
+
+                <a asp-controller="Rentals" asp-action="Index" class="btn btn-outline-warning mt-auto">
+                    View Rentals
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row align-items-center g-5">
+
+        <div class="col-md-6">
+            <img src="https://media.istockphoto.com/id/2188161516/tr/vekt%C3%B6r/passenger-cars-set.jpg?s=612x612&w=0&k=20&c=UQfMUhMl4-Lq_HfBduPiVGynin1f28DNRTxMR2WgR0M="
+                 class="img-fluid rounded-4 shadow"
+                 alt="Rent a Car">
+        </div>
+
+        <div class="col-md-6">
+            <span class="badge bg-primary mb-3">Why Choose Us?</span>
+            <h2 class="fw-bold">Simple, Clean and Practical Rental Management</h2>
+
+            <p class="text-muted">
+                This system provides basic CRUD operations with a modern interface.
+                It allows relational data management between cars, customers and rental records.
+            </p>
+
+            <div class="row g-3 mt-3">
+
+                <div class="col-6">
+                    <div class="p-3 bg-light rounded-4 shadow-sm">
+                        <i class="fa-solid fa-gauge-high text-primary fs-3"></i>
+                        <h5 class="fw-bold mt-2">Fast</h5>
+                        <p class="text-muted small mb-0">Quick create and listing operations.</p>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="p-3 bg-light rounded-4 shadow-sm">
+                        <i class="fa-solid fa-shield-halved text-success fs-3"></i>
+                        <h5 class="fw-bold mt-2">Reliable</h5>
+                        <p class="text-muted small mb-0">Organized and relational data structure.</p>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="p-3 bg-light rounded-4 shadow-sm">
+                        <i class="fa-solid fa-calendar-check text-warning fs-3"></i>
+                        <h5 class="fw-bold mt-2">Trackable</h5>
+                        <p class="text-muted small mb-0">Easily track rental dates.</p>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="p-3 bg-light rounded-4 shadow-sm">
+                        <i class="fa-solid fa-money-bill-wave text-danger fs-3"></i>
+                        <h5 class="fw-bold mt-2">Profitable</h5>
+                        <p class="text-muted small mb-0">View total rental prices.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row text-center g-4">
+
+        <div class="col-md-3">
+            <div class="p-4 shadow-sm rounded-4 bg-white">
+                <i class="fa-solid fa-car fs-2 text-primary"></i>
+                <h3 class="fw-bold mt-3">50+</h3>
+                <p class="text-muted mb-0">Available Cars</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="p-4 shadow-sm rounded-4 bg-white">
+                <i class="fa-solid fa-users fs-2 text-success"></i>
+                <h3 class="fw-bold mt-3">120+</h3>
+                <p class="text-muted mb-0">Customers</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="p-4 shadow-sm rounded-4 bg-white">
+                <i class="fa-solid fa-key fs-2 text-warning"></i>
+                <h3 class="fw-bold mt-3">300+</h3>
+                <p class="text-muted mb-0">Rentals</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="p-4 shadow-sm rounded-4 bg-white">
+                <i class="fa-solid fa-star fs-2 text-danger"></i>
+                <h3 class="fw-bold mt-3">4.8</h3>
+                <p class="text-muted mb-0">Rating</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+

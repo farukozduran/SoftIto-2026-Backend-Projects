@@ -1,0 +1,64 @@
+﻿@page "{id:int}"
+@model CafeManagementAdoNet.Pages.Employees.DeleteModel
+
+@{
+    ViewData["Title"] = "Çalışan Sil";
+}
+
+<div class="cafe-page">
+    <div class="cafe-container">
+
+        <section class="cafe-hero">
+            <div>
+                <div class="cafe-kicker">Silme İşlemi</div>
+                <h1>Çalışan Sil</h1>
+                <p>Bu işlem seçili çalışan kaydını veritabanından kaldırır.</p>
+            </div>
+
+            <div class="cafe-hero-actions">
+                <a asp-page="Index" class="cafe-btn cafe-btn-soft">Çalışanlara Dön</a>
+            </div>
+        </section>
+
+        <section class="cafe-card">
+            <div class="cafe-card-body">
+                <div class="cafe-delete-panel">
+                    <h3>Bu çalışanı silmek istediğine emin misin?</h3>
+                    <p class="cafe-muted mb-0">Silme işleminden sonra bu çalışan listede görünmez.</p>
+                </div>
+
+                <dl class="cafe-detail-list">
+                    <div class="cafe-detail-row">
+                        <dt>Ad Soyad</dt>
+                        <dd>@Model.Employee.FullName</dd>
+                    </div>
+
+                    <div class="cafe-detail-row">
+                        <dt>Pozisyon</dt>
+                        <dd>@Model.Employee.Position</dd>
+                    </div>
+
+                    <div class="cafe-detail-row">
+                        <dt>Maaş</dt>
+                        <dd>@Model.Employee.Salary.ToString("N2") ₺</dd>
+                    </div>
+
+                    <div class="cafe-detail-row">
+                        <dt>Başlangıç Tarihi</dt>
+                        <dd>@Model.Employee.StartDate.ToString("dd.MM.yyyy")</dd>
+                    </div>
+                </dl>
+
+                <form method="post">
+                    <input type="hidden" asp-for="Employee.EmployeeId" />
+
+                    <div class="cafe-form-actions">
+                        <a asp-page="Index" class="cafe-btn cafe-btn-outline">Vazgeç</a>
+                        <button type="submit" class="cafe-btn cafe-btn-danger">Sil</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </div>
+</div>

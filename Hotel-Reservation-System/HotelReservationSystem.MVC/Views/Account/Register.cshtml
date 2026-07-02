@@ -1,0 +1,51 @@
+﻿@model HotelReservationSystem.MVC.Models.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Kayıt Ol";
+}
+
+<div class="row justify-content-center my-5">
+    <div class="col-md-6 col-lg-5">
+        <div class="text-center mb-4">
+            <div class="mb-3">
+                <i class="fa-solid fa-user-plus fa-4x text-primary" style="color: #2a5298 !important;"></i>
+            </div>
+            <h3 class="fw-bold">Yeni Hesap Oluştur</h3>
+            <p class="text-muted">Aramıza katılmak için formu doldurun</p>
+        </div>
+
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Username" class="form-control" id="floatingRegUsername" placeholder="Kullanıcı Adı" />
+                <label for="floatingRegUsername"><i class="fa-solid fa-user me-2 text-muted"></i>Kullanıcı Adı</label>
+                <span asp-validation-for="Username" class="text-danger" style="font-size: 0.85rem;"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Email" class="form-control" id="floatingEmail" placeholder="E-posta Adresi" />
+                <label for="floatingEmail"><i class="fa-solid fa-envelope me-2 text-muted"></i>E-posta Adresi</label>
+                <span asp-validation-for="Email" class="text-danger" style="font-size: 0.85rem;"></span>
+            </div>
+
+            <div class="form-floating mb-4">
+                <input asp-for="Password" class="form-control" id="floatingRegPassword" placeholder="Şifre" />
+                <label for="floatingRegPassword"><i class="fa-solid fa-lock me-2 text-muted"></i>Şifre</label>
+                <span asp-validation-for="Password" class="text-danger" style="font-size: 0.85rem;"></span>
+            </div>
+
+            <button type="submit" class="btn text-white w-100 py-2 fw-bold" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); border: none; border-radius: 8px;">
+                KAYIT OL <i class="fa-solid fa-check ms-2"></i>
+            </button>
+
+            <div class="text-center mt-4">
+                <p class="text-muted">
+                    Zaten bir hesabınız var mı?
+                    <a href="@Url.Action("Login", "Account")" class="text-decoration-none fw-bold" style="color: #2a5298;">Giriş Yapın</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+

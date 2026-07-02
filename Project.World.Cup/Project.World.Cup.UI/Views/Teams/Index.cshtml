@@ -1,0 +1,105 @@
+@model IEnumerable<Project.World.Cup.Model.Team>
+
+@{
+    ViewData["Title"] = "Takımlar";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+}
+
+
+<div class="container teams-page">
+    <div class="teams-hero">
+        <h1>Dünya Kupası Takımları</h1>
+        <p>
+            Turnuvaya katılan takımları, kısa kodlarını, bayraklarını ve teknik direktör bilgilerini bu ekrandan takip edebilirsin.
+        </p>
+    </div>
+
+    <div class="teams-toolbar">
+        <div class="search-box">
+            <input type="text"
+                   id="teamSearch"
+                   class="form-control"
+                   placeholder="Takım ara... örn: Türkiye, Brazil, ARG" />
+        </div>
+
+        <a asp-action="Create" class="create-btn">
+            + Yeni Takım Ekle
+        </a>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="teams-grid" id="teamsGrid">
+            @foreach (var item in Model)
+            {
+                <div class="team-card"
+                     data-team-name="@item.TeamName?.ToLower()"
+                     data-team-code="@item.ShortCode?.ToLower()">
+
+                    <div class="team-card-content">
+                        <div class="team-header">
+                            <div class="flag-box">
+                                @if (!string.IsNullOrEmpty(item.FlagUrl))
+                                {
+                                    <img src="@item.FlagUrl" alt="@item.TeamName bayrağı" />
+                                }
+                                else
+                                {
+                                    <span class="flag-placeholder">
+                                        @item.ShortCode
+                                    </span>
+                                }
+                            </div>
+
+                            <div>
+                                <h3 class="team-name">@item.TeamName</h3>
+                                <span class="team-code">@item.ShortCode</span>
+                            </div>
+                        </div>
+
+                        <div class="team-info">
+                            <small>Teknik Direktör</small>
+                            <span>
+                                @(string.IsNullOrEmpty(item.CoachName) ? "Belirtilmedi" : item.CoachName)
+                            </span>
+                        </div>
+
+                        <div class="team-actions">
+                            <a asp-action="Details"
+                               asp-route-id="@item.TeamId"
+                               class="btn-detail">
+                                Detay
+                            </a>
+
+                            <a asp-action="Edit"
+                               asp-route-id="@item.TeamId"
+                               class="btn-edit">
+                                Düzenle
+                            </a>
+
+                            <a asp-action="Delete"
+                               asp-route-id="@item.TeamId"
+                               class="btn-delete">
+                                Sil
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <h4>Henüz takım eklenmemiş.</h4>
+            <p>İlk takımı ekleyerek Dünya Kupası takip sistemini oluşturmaya başlayabilirsin.</p>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="~/js/script.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,86 @@
+﻿@model HotelReservationSystem.MVC.Models.ViewModels.HomeViewModel
+
+@{
+    ViewData["Title"] = "Ana Sayfa - Hoş Geldiniz";
+}
+
+<div class="container mt-5">
+
+    <div class="p-5 mb-5 bg-light rounded-3 shadow-sm text-center">
+        <h1 class="display-5 fw-bold">Hayalinizdeki Tatil Sizi Bekliyor</h1>
+        <p class="col-md-8 mx-auto fs-4">
+            En seçkin otellerimizde, size en uygun oda tiplerini keşfedin ve unutulmaz bir konaklama deneyimi yaşayın.
+        </p>
+    </div>
+
+    <div class="mb-5">
+        <h2 class="mb-4 border-bottom pb-2">Seçkin Otellerimiz</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @if (Model.Hotels != null && Model.Hotels.Any())
+            {
+                foreach (var hotel in Model.Hotels)
+                {
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0">
+                            @if (!string.IsNullOrEmpty(hotel.Photo))
+                            {
+                                <img src="@hotel.Photo" class="card-img-top" alt="@hotel.Name" style="height: 200px; object-fit: cover;">
+                            }
+                            else
+                            {
+                                <div class="bg-secondary text-white d-flex justify-content-center align-items-center" style="height: 200px;">Görsel Yok</div>
+                            }
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">@hotel.Name</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">@hotel.City</h6>
+                                <p class="card-text text-warning">
+                                    @for (int i = 0; i < hotel.StarRating; i++)
+                                    {
+                                        <span>⭐</span>
+                                    }
+                                </p>
+                            </div>
+                            <div class="card-footer bg-white border-0 pb-3">
+                                <a href="#" class="btn btn-outline-primary w-100">Oteli İncele</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12"><p class="text-muted">Şu an için listelenecek otel bulunmamaktadır.</p></div>
+            }
+        </div>
+    </div>
+
+    <div class="mb-5">
+        <h2 class="mb-4 border-bottom pb-2">Oda Tiplerimiz</h2>
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            @if (Model.RoomTypes != null && Model.RoomTypes.Any())
+            {
+                foreach (var roomType in Model.RoomTypes)
+                {
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0">
+                            @if (!string.IsNullOrEmpty(roomType.Photo))
+                            {
+                                <img src="@roomType.Photo" class="card-img-top" alt="@roomType.TypeName" style="height: 150px; object-fit: cover;">
+                            }
+                            else
+                            {
+                                <div class="bg-secondary text-white d-flex justify-content-center align-items-center" style="height: 150px;">Görsel Yok</div>
+                            }
+                            <div class="card-body text-center">
+                                <h5 class="card-title text-primary">@roomType.TypeName</h5>
+                                <p class="card-text small text-muted">Maks: @roomType.MaxCapacity Kişi</p>
+                                <p class="card-text small text-truncate">@roomType.Description</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+</div>
