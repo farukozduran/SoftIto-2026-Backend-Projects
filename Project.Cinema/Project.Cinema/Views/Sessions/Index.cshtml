@@ -1,0 +1,102 @@
+@{
+    ViewData["Title"] = "Seans Yönetimi";
+}
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Seans Yönetimi</h2>
+            <p class="text-muted mb-0">Seanslar AJAX ile listeleniyor.</p>
+        </div>
+
+        <button type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#sessionModal"
+                onclick="openAddSessionModal()">
+            + Yeni Seans Ekle
+        </button>
+    </div>
+
+    <div class="card border-0 shadow-sm glass-card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle custom-table">
+                    <thead>
+                        <tr>
+                            <th>Film Adı</th>
+                            <th>Salon</th>
+                            <th>Tarih</th>
+                            <th>Saat</th>
+                            <th>Bilet Fiyatı</th>
+                            <th>Boş Koltuk</th>
+                            <th class="text-end">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sessionTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Seans Ekleme Modal -->
+<div class="modal fade custom-modal" id="sessionModal" tabindex="-1" aria-labelledby="sessionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header">
+                <h5 class="modal-title" id="sessionModalLabel">Yeni Seans Ekle</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="sessionId" />
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Film Adı</label>
+                        <input type="text" id="sessionMovieTitle" class="form-control" placeholder="Örn: Interstellar">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Salon</label>
+                        <input type="text" id="hallName" class="form-control" placeholder="Örn: Salon 1">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Tarih</label>
+                        <input type="date" id="sessionDate" class="form-control">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Saat</label>
+                        <input type="time" id="sessionTime" class="form-control">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Bilet Fiyatı (₺)</label>
+                        <input type="number" step="0.01" id="ticketPrice" class="form-control" placeholder="Örn: 150">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Boş Koltuk Sayısı</label>
+                        <input type="number" id="emptySeatCount" class="form-control" placeholder="Örn: 50">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">
+                    Kapat
+                </button>
+                <button type="button" class="btn btn-primary" id="btnAddSession" onclick="addSession()">
+                    Kaydet
+                </button>
+
+                <button type="button" class="btn btn-warning" id="btnUpdateSession" onclick="updateSession()" style="display:none;">
+                    Güncelle
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

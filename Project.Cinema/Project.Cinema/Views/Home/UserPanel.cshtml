@@ -1,6 +1,94 @@
-﻿@{
-    ViewData["Title"] = "User Panel";
+@{
+    ViewData["Title"] = "Vizyondakiler";
 }
 
-<h1>User Panel</h1>
-<p>Kullanıcı burada filmleri ve seansları görecek.</p>
+<div class="container py-4">
+    <!-- Announcements Marquee -->
+    <div id="announcementMarquee" style="display: none;"></div>
+
+    <div class="text-center mb-5">
+        <h1 class="fw-bold" style="font-size: 3rem; letter-spacing: -1px;">Vizyondaki Filmler</h1>
+        <p class="text-muted fs-5">En yeni ve en popüler filmleri keşfedin.</p>
+    </div>
+
+    <!-- Movie Grid Container -->
+    <div id="userMovieGrid" class="movie-grid">
+        <!-- AJAX will populate movies here -->
+        <div class="text-center w-100 py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Yükleniyor...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            loadUserMovies();
+            loadActiveAnnouncements();
+        });
+
+        function loadActiveAnnouncements() {
+            $.ajax({
+                url: '/Announcements/ActiveAnnouncementList',
+                type: 'GET',
+                success: function (data) {
+                    if (data && data.length > 0) {
+                        let marqueeText = '';
+                        $.each(data, function (index, ann) {
+                            marqueeText += `<span class="mx-4"><i class="bi bi-megaphone-fill me-2"></i><strong>${ann.title}:</strong> ${ann.content}</span>`;
+                        });
+                        
+                        let marqueeHtml = `
+                            <div class="marquee-container">
+                                <div class="marquee-content">
+                                    ${marqueeText}
+                                </div>
+                            </div>
+                        `;
+                        $('#announcementMarquee').html(marqueeHtml).slideDown();
+                    }
+                }
+            });
+        }
+
+        function loadUserMovies() {
+            $.ajax({
+                url: '/Movies/MovieList',
+                type: 'GET',
+                success: function (data) {
+                    let gridHtml = '';
+                    
+                    if (data.length === 0) {
+                        gridHtml = '<div class="col-12 text-center text-muted">Şu an vizyonda film bulunmamaktadır.</div>';
+                    } else {
+                        $.each(data, function (index, movie) {
+                            gridHtml += `
+                                <div class="glass-card overflow-hidden h-100 d-flex flex-column">
+                                    <img src="${movie.imageUrl}" alt="${movie.movieTitle}" class="movie-poster" onerror="this.src='https://via.placeholder.com/300x450/1a1d24/ffffff?text=Resim+Yok'">
+                                    <div class="movie-info d-flex flex-column flex-grow-1">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h5 class="mb-0 text-truncate" title="${movie.movieTitle}">${movie.movieTitle}</h5>
+                                            <span class="badge bg-danger rounded-pill" style="font-size: 0.75rem;">${movie.duration} dk</span>
+                                        </div>
+                                        <p class="text-muted small mb-3"><i class="bi bi-film"></i> ${movie.genre} | ${movie.director}</p>
+                                        <p class="small text-secondary flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                            ${movie.description}
+                                        </p>
+                                        <button class="btn btn-primary w-100 mt-auto">Detaylar</button>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    }
+
+                    $('#userMovieGrid').html(gridHtml);
+                },
+                error: function () {
+                    $('#userMovieGrid').html('<div class="col-12 text-center text-danger">Filmler yüklenirken bir hata oluştu.</div>');
+                }
+            });
+        }
+    </script>
+}
