@@ -1,3 +1,4 @@
+@model Web.Dapper.Project.MVC.Models.HomeReportViewModel
 @{
     ViewData["Title"] = "Dashboard";
 }
@@ -8,74 +9,131 @@
         <p class="text-sm text-slate-500">Central monitoring for all bank operations and system health.</p>
     </div>
     <div class="flex gap-3">
-        <button class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50 shadow-sm transition-all">Export Report</button>
         <a asp-controller="Transactions" asp-action="Create" class="px-4 py-2 bg-blue-600 rounded-lg text-sm font-medium text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20 transition-all">+ Create Transaction</a>
     </div>
 </div>
 
-<!-- Stats Row -->
-<div class="grid grid-cols-4 gap-6">
+<!-- Main Grid Sections (Report Tables) -->
+<div class="grid grid-cols-2 gap-6 mt-6">
+    
+    <!-- Table 1: Last 3 Transactions -->
     <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Total Balance</p>
-        <h3 class="text-2xl font-bold">$12,450,200</h3>
-        <div class="mt-4 flex items-center gap-1 text-emerald-500">
-            <i class="bi bi-arrow-up-right"></i>
-            <span class="text-xs font-semibold">12.5% from last month</span>
+        <h4 class="font-bold text-sm mb-4">Son 3 İşlem</h4>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+                <thead>
+                    <tr class="border-b border-slate-200">
+                        <th class="pb-2 font-semibold">Tarih</th>
+                        <th class="pb-2 font-semibold">İşlem Tipi</th>
+                        <th class="pb-2 font-semibold text-right">Tutar</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    @foreach(var item in Model.Last3Transactions)
+                    {
+                        <tr>
+                            <td class="py-2 text-slate-500">@item.TransactionDate.ToShortDateString()</td>
+                            <td class="py-2">@item.TransactionType</td>
+                            <td class="py-2 text-right font-medium">@item.Amount.ToString("C")</td>
+                        </tr>
+                    }
+                    @if(!Model.Last3Transactions.Any())
+                    {
+                        <tr><td colspan="3" class="py-2 text-center text-slate-400">Kayıt bulunamadı.</td></tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
-    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Active Customers</p>
-        <h3 class="text-2xl font-bold">3,842</h3>
-        <div class="mt-4 flex items-center gap-1 text-emerald-500">
-            <i class="bi bi-arrow-up-right"></i>
-            <span class="text-xs font-semibold">42 new today</span>
-        </div>
-    </div>
-    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Total Transactions</p>
-        <h3 class="text-2xl font-bold">24,102</h3>
-        <div class="mt-4 flex items-center gap-1 text-slate-400">
-            <i class="bi bi-clock"></i>
-            <span class="text-xs font-semibold">Last 24 hours</span>
-        </div>
-    </div>
-    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm bg-gradient-to-br from-slate-900 to-slate-800 text-white border-none">
-        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Risk Score</p>
-        <h3 class="text-2xl font-bold">0.02%</h3>
-        <div class="mt-4">
-            <div class="w-full bg-slate-700 rounded-full h-1.5">
-                <div class="bg-blue-500 h-1.5 rounded-full" style="width: 15%"></div>
-            </div>
-            <span class="text-[10px] text-slate-400 mt-1 block">System Health: Excellent</span>
-        </div>
-    </div>
-</div>
 
-<!-- Main Grid Sections (Placeholder for layout demonstration) -->
-<div class="grid grid-cols-3 gap-6 h-[400px]">
-    <div class="col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col items-center justify-center text-slate-400">
-        <i class="bi bi-bar-chart-fill text-4xl mb-3"></i>
-        <p class="text-sm">Revenue Chart (D3/Recharts implementation)</p>
-    </div>
-    <div class="space-y-6">
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex-1">
-            <h4 class="font-bold text-sm mb-4">Top Branches</h4>
-            <div class="space-y-3">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                        <div class="w-2 h-2 rounded-full bg-blue-600"></div>
-                        <span class="text-xs font-medium">Central Hub</span>
-                    </div>
-                    <span class="text-xs font-bold">$4.2M</span>
-                </div>
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                        <div class="w-2 h-2 rounded-full bg-blue-400"></div>
-                        <span class="text-xs font-medium">Westside</span>
-                    </div>
-                    <span class="text-xs font-bold">$2.8M</span>
-                </div>
-            </div>
+    <!-- Table 2: Customers containing 'A' -->
+    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+        <h4 class="font-bold text-sm mb-4">İsminde 'A' Geçen Müşteriler</h4>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+                <thead>
+                    <tr class="border-b border-slate-200">
+                        <th class="pb-2 font-semibold">Ad Soyad</th>
+                        <th class="pb-2 font-semibold">Email</th>
+                        <th class="pb-2 font-semibold text-right">TCKN</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    @foreach(var item in Model.CustomersWithLetterA)
+                    {
+                        <tr>
+                            <td class="py-2 font-medium">@item.FirstName @item.LastName</td>
+                            <td class="py-2 text-slate-500">@item.Email</td>
+                            <td class="py-2 text-right text-slate-500">@item.IdentityNumber</td>
+                        </tr>
+                    }
+                    @if(!Model.CustomersWithLetterA.Any())
+                    {
+                        <tr><td colspan="3" class="py-2 text-center text-slate-400">Kayıt bulunamadı.</td></tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
-</div>\n
+
+    <!-- Table 3: Top Accounts -->
+    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+        <h4 class="font-bold text-sm mb-4">En Yüksek Bakiyeli 5 Hesap</h4>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+                <thead>
+                    <tr class="border-b border-slate-200">
+                        <th class="pb-2 font-semibold">Hesap No</th>
+                        <th class="pb-2 font-semibold">Para Birimi</th>
+                        <th class="pb-2 font-semibold text-right">Bakiye</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    @foreach(var item in Model.TopAccounts)
+                    {
+                        <tr>
+                            <td class="py-2 font-medium">@item.AccountNumber</td>
+                            <td class="py-2 text-slate-500">@item.Currency</td>
+                            <td class="py-2 text-right font-medium text-emerald-600">@item.Balance.ToString("C")</td>
+                        </tr>
+                    }
+                    @if(!Model.TopAccounts.Any())
+                    {
+                        <tr><td colspan="3" class="py-2 text-center text-slate-400">Kayıt bulunamadı.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Table 4: Last 3 Branches -->
+    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+        <h4 class="font-bold text-sm mb-4">Son Eklenen Şubeler</h4>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+                <thead>
+                    <tr class="border-b border-slate-200">
+                        <th class="pb-2 font-semibold">ID</th>
+                        <th class="pb-2 font-semibold">Şube Adı</th>
+                        <th class="pb-2 font-semibold text-right">Şehir</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    @foreach(var item in Model.Last3Branches)
+                    {
+                        <tr>
+                            <td class="py-2 text-slate-500">#@item.Id</td>
+                            <td class="py-2 font-medium">@item.BranchName</td>
+                            <td class="py-2 text-right text-slate-500">@item.City</td>
+                        </tr>
+                    }
+                    @if(!Model.Last3Branches.Any())
+                    {
+                        <tr><td colspan="3" class="py-2 text-center text-slate-400">Kayıt bulunamadı.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
