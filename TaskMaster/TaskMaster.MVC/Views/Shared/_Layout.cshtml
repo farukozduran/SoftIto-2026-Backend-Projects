@@ -34,15 +34,6 @@
                                 <i class="bi bi-bar-chart-fill"></i> Reports
                             </a>
                         </li>
-    
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item ms-3">
-                                <a class="nav-link text-danger fw-bold border border-danger rounded px-3" asp-area="" asp-controller="AdminDashboard" asp-action="Index">
-                                    Admin Dashboard
-                                </a>
-                            </li>
-                        }
                     </ul>
                 </div>
             </div>
