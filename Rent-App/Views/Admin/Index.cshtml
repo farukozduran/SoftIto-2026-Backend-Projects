@@ -1,14 +1,12 @@
-﻿@using Rent.App.Models
+@using Rent.App.Models
 
 @{
     ViewData["Title"] = "Admin Dashboard";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 
-    var lastThreeRentals = ViewBag.LastThreeRentals as List<Rental>;
-    var firstThreeCustomers = ViewBag.FirstThreeCustomers as List<Customer>;
-    var lastThreeCustomers = ViewBag.LastThreeCustomers as List<Customer>;
-    var carsContainsA = ViewBag.CarsContainsA as List<Car>;
-    var customersContainsA = ViewBag.CustomersContainsA as List<Customer>;
+    var latestRentals = ViewBag.LatestRentals as List<RentalDetailReport>;
+    var customerSpendings = ViewBag.CustomerSpendings as List<CustomerSpendingReport>;
+    var carRentalCounts = ViewBag.CarRentalCounts as List<CarRentalCountReport>;
 }
 
 <h1 class="h3 mb-4 text-gray-800">Admin Dashboard</h1>
@@ -110,32 +108,32 @@
 
 <div class="row">
 
-    <!-- Last 3 Rentals -->
-    <div class="col-lg-6 mb-4">
+    <!-- Latest Rentals -->
+    <div class="col-lg-12 mb-4">
         <div class="card shadow">
             <div class="card-header py-3 bg-primary">
-                <h6 class="m-0 font-weight-bold text-white">Last 3 Rentals</h6>
+                <h6 class="m-0 font-weight-bold text-white">Latest 5 Rentals</h6>
             </div>
 
             <div class="card-body">
-                @if (lastThreeRentals != null && lastThreeRentals.Any())
+                @if (latestRentals != null && latestRentals.Any())
                 {
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Customer</th>
-                                    <th>Car</th>
+                                    <th>Customer Name</th>
+                                    <th>Car Details</th>
                                     <th>Rent Date</th>
                                     <th>Total Price</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in lastThreeRentals)
+                                @foreach (var item in latestRentals)
                                 {
                                     <tr>
-                                        <td>@item.Customer.CustomerName @item.Customer.CustomerSurname</td>
-                                        <td>@item.Car.Brand @item.Car.Model</td>
+                                        <td>@item.CustomerName @item.CustomerSurname</td>
+                                        <td>@item.CarBrand @item.CarModel</td>
                                         <td>@item.RentDate</td>
                                         <td>@item.TotalPrice ₺</td>
                                     </tr>
@@ -152,25 +150,37 @@
         </div>
     </div>
 
-    <!-- First 3 Customers -->
+    <!-- Top Customers by Spending -->
     <div class="col-lg-6 mb-4">
         <div class="card shadow">
             <div class="card-header py-3 bg-success">
-                <h6 class="m-0 font-weight-bold text-white">First 3 Customers</h6>
+                <h6 class="m-0 font-weight-bold text-white">Top Customers by Spending</h6>
             </div>
 
             <div class="card-body">
-                @if (firstThreeCustomers != null && firstThreeCustomers.Any())
+                @if (customerSpendings != null && customerSpendings.Any())
                 {
-                    <ul class="list-group">
-                        @foreach (var item in firstThreeCustomers)
-                        {
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                @item.CustomerName @item.CustomerSurname
-                                <span class="badge badge-success">@item.Email</span>
-                            </li>
-                        }
-                    </ul>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Customer</th>
+                                    <th>Rentals</th>
+                                    <th>Total Spent</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in customerSpendings)
+                                {
+                                    <tr>
+                                        <td>@item.CustomerName @item.CustomerSurname</td>
+                                        <td>@item.RentalCount</td>
+                                        <td>@item.TotalSpent ₺</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 }
                 else
                 {
@@ -180,62 +190,32 @@
         </div>
     </div>
 
-    <!-- Last 3 Customers -->
+    <!-- Most Rented Cars -->
     <div class="col-lg-6 mb-4">
         <div class="card shadow">
             <div class="card-header py-3 bg-warning">
-                <h6 class="m-0 font-weight-bold text-white">Last 3 Customers</h6>
+                <h6 class="m-0 font-weight-bold text-white">Most Rented Cars</h6>
             </div>
 
             <div class="card-body">
-                @if (lastThreeCustomers != null && lastThreeCustomers.Any())
-                {
-                    <ul class="list-group">
-                        @foreach (var item in lastThreeCustomers)
-                        {
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                @item.CustomerName @item.CustomerSurname
-                                <span class="badge badge-warning">@item.Phone</span>
-                            </li>
-                        }
-                    </ul>
-                }
-                else
-                {
-                    <p class="text-muted mb-0">No customer records found.</p>
-                }
-            </div>
-        </div>
-    </div>
-
-    <!-- Cars Containing A -->
-    <div class="col-lg-6 mb-4">
-        <div class="card shadow">
-            <div class="card-header py-3 bg-danger">
-                <h6 class="m-0 font-weight-bold text-white">Cars Containing Letter "A"</h6>
-            </div>
-
-            <div class="card-body">
-                @if (carsContainsA != null && carsContainsA.Any())
+                @if (carRentalCounts != null && carRentalCounts.Any())
                 {
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Brand</th>
-                                    <th>Model</th>
+                                    <th>Car Details</th>
                                     <th>Plate</th>
-                                    <th>Daily Price</th>
+                                    <th>Rental Count</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in carsContainsA)
+                                @foreach (var item in carRentalCounts)
                                 {
                                     <tr>
-                                        <td>@item.Brand</td>
-                                        <td>@item.Model</td>
+                                        <td>@item.CarBrand @item.CarModel</td>
                                         <td>@item.Plate</td>
-                                        <td>@item.DailyPrice ₺</td>
+                                        <td>@item.RentalCount</td>
                                     </tr>
                                 }
                             </tbody>
@@ -244,49 +224,7 @@
                 }
                 else
                 {
-                    <p class="text-muted mb-0">No cars found.</p>
-                }
-            </div>
-        </div>
-    </div>
-
-    <!-- Customers Containing A -->
-    <div class="col-lg-12 mb-4">
-        <div class="card shadow">
-            <div class="card-header py-3 bg-dark">
-                <h6 class="m-0 font-weight-bold text-white">Customers Containing Letter "A"</h6>
-            </div>
-
-            <div class="card-body">
-                @if (customersContainsA != null && customersContainsA.Any())
-                {
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Customer Name</th>
-                                    <th>Customer Surname</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in customersContainsA)
-                                {
-                                    <tr>
-                                        <td>@item.CustomerName</td>
-                                        <td>@item.CustomerSurname</td>
-                                        <td>@item.Phone</td>
-                                        <td>@item.Email</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                }
-                else
-                {
-                    <p class="text-muted mb-0">No customers found.</p>
+                    <p class="text-muted mb-0">No car records found.</p>
                 }
             </div>
         </div>
