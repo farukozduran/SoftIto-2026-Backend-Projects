@@ -13,9 +13,9 @@ namespace Web.Dapper.Project.MVC.Controllers
             _branchRepo = branchRepo;
         }
 
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> Index()
         {
-            var branches = _branchRepo.GetAllBranchesAsync();
+            var branches = await _branchRepo.GetAllBranchesAsync();
             return View(branches);
         }
 
@@ -40,7 +40,7 @@ namespace Web.Dapper.Project.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var branch = _branchRepo.GetBranchById(id);
+            var branch = await _branchRepo.GetBranchById(id);
 
             if (branch is null)
             {

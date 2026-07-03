@@ -9,11 +9,11 @@ namespace Web.Dapper.Project.MVC.Context
         private readonly IConfiguration _configuration;
         private readonly string _connectionString;
 
-        public DapperContext(IConfiguration configuration, string connectionString)
+        public DapperContext(IConfiguration configuration)
         {
             _configuration = configuration;
-            _connectionString = _connectionString = _configuration.GetConnectionString("DefaultConnection")
-                                                    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            _connectionString = _configuration.GetConnectionString("DefaultConnection")
+                                    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
         }
 
         public SqlConnection CreateSqlConnection()

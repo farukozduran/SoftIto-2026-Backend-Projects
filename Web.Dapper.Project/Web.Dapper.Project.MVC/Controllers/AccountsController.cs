@@ -99,7 +99,7 @@ namespace Web.Dapper.Project.MVC.Controllers
             // 2. parametre ("Id"): HTML 'value' kısmına gidecek alan (Arka planda kaydedilecek olan)
             // 3. parametre ("FirstName" / "BranchName"): HTML'de kullanıcının gözüyle göreceği metin
             ViewBag.Customers = new SelectList(customers, "Id", "FirstName");
-            ViewBag.Branches = new SelectList(branches, "Id", "BranchName"
+            ViewBag.Branches = new SelectList(branches, "Id", "BranchName");
         }
     }
 }

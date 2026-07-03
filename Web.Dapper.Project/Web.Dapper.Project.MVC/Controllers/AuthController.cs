@@ -2,16 +2,16 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Web.Dapper.Project.MVC.Data.Repositories;
+using Web.Dapper.Project.MVC.Data.Interfaces;
 using Web.Dapper.Project.MVC.Models;
 
 namespace Web.Dapper.Project.MVC.Controllers
 {
     public class AuthController : Controller
     {
-        private readonly CustomerRepository _customerRepository;
+        private readonly ICustomerRepository _customerRepository;
         // Login metodumuz CustomerRepository içinde olduğu için onu DI ile alıyoruz
-        public AuthController(CustomerRepository customerRepository)
+        public AuthController(ICustomerRepository customerRepository)
         {
             _customerRepository = customerRepository;
         }
@@ -33,7 +33,7 @@ namespace Web.Dapper.Project.MVC.Controllers
             {
                 var customer = _customerRepository.Login(model.IdentityNumber, model.Password);
 
-                if (customer is null)
+                if (customer != null)
                 {
                     var claims = new List<Claim>
                     {
@@ -65,7 +65,7 @@ namespace Web.Dapper.Project.MVC.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login", "Auth");   
+            return RedirectToAction("Index", "Home");   
         }
     }
-}}
+}

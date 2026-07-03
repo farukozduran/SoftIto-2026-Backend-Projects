@@ -18,7 +18,7 @@ namespace Web.Dapper.Project.MVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var transactions = _transactionRepo.GetAllAsync();
+            var transactions = await _transactionRepo.GetAllAsync();
             return View(transactions);
         }
 

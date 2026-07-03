@@ -1,0 +1,41 @@
+@model IEnumerable<Branch>
+@{
+    ViewData["Title"] = "Branches";
+}
+
+<div class="flex items-center justify-between mb-6">
+    <div>
+        <h1 class="text-2xl font-bold text-slate-900">Branches</h1>
+        <p class="text-sm text-slate-500">Manage bank branches across cities.</p>
+    </div>
+    <a asp-action="Create" class="px-4 py-2 bg-blue-600 rounded-lg text-sm font-medium text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20 transition-all">+ Add Branch</a>
+</div>
+
+<div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+    <div class="flex-1 overflow-auto">
+        <table class="w-full text-left whitespace-nowrap">
+            <thead class="bg-slate-50 text-[10px] uppercase text-slate-400 font-bold border-b border-slate-200">
+                <tr>
+                    <th class="px-6 py-4">Branch Name</th>
+                    <th class="px-6 py-4">City</th>
+                    <th class="px-6 py-4 text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-sm">
+                @foreach (var item in Model) {
+                    <tr class="border-b border-slate-50 hover:bg-slate-50 transition-colors">
+                        <td class="px-6 py-4 font-medium text-slate-900">@item.BranchName</td>
+                        <td class="px-6 py-4">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 text-xs font-medium border border-slate-200">@item.City</span>
+                        </td>
+                        <td class="px-6 py-4 text-right space-x-2">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="text-blue-600 hover:text-blue-800 text-sm font-medium">Edit</a>
+                            <span class="text-slate-300">|</span>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="text-red-600 hover:text-red-800 text-sm font-medium">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>\n

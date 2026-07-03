@@ -15,7 +15,7 @@ namespace Web.Dapper.Project.MVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var customers = _customerRepo.GetAllAsync();
+            var customers = await _customerRepo.GetAllAsync();
             return View(customers);
         }
 
@@ -40,7 +40,7 @@ namespace Web.Dapper.Project.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var customer = _customerRepo.GetCustomerByIdAsync(id);
+            var customer = await _customerRepo.GetCustomerByIdAsync(id);
             if(customer is null)
             {
                 return NotFound();

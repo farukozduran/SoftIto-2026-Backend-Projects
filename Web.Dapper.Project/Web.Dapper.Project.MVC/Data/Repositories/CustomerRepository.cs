@@ -28,7 +28,7 @@ namespace Web.Dapper.Project.MVC.Data.Repositories
                 using (var command = new SqlCommand(query, conn))
                 {
                     command.Parameters.AddWithValue("@IdentityNumber", identityNumber);
-                    command.Parameters.AddWithValue("Password", password);
+                    command.Parameters.AddWithValue("@PasswordHash", password);
 
                     conn.Open();
 
