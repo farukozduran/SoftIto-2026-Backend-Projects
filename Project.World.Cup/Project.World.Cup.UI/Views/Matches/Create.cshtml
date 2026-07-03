@@ -1,0 +1,118 @@
+@model Project.World.Cup.Model.Match
+
+@{
+    ViewData["Title"] = "Yeni Maç Ekle";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+}
+
+<div class="container entity-page">
+    <div class="entity-hero">
+        <h1>Yeni Maç Ekle</h1>
+        <p>
+            Dünya Kupası turnuvası için yeni bir maç oluşturabilir, stadyum ve takımları belirleyebilirsin.
+        </p>
+    </div>
+
+    <div class="form-shell">
+        <div class="form-card">
+            <div class="form-card-header">
+                <div>
+                    <span class="form-kicker">Maç Yönetimi</span>
+                    <h2>Maç Bilgileri</h2>
+                    <p>Maç detaylarını girerek yeni kayıt oluştur.</p>
+                </div>
+
+                <div class="form-icon-box">
+                    <span>⚽</span>
+                </div>
+            </div>
+
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-group-modern">
+                    <label asp-for="TournamentId">Turnuva</label>
+                    <select asp-for="TournamentId" class="form-control modern-input" asp-items="ViewBag.TournamentId">
+                        <option value="">Turnuva seçiniz</option>
+                    </select>
+                    <span asp-validation-for="TournamentId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="GroupId">Grup (Opsiyonel)</label>
+                    <select asp-for="GroupId" class="form-control modern-input" asp-items="ViewBag.GroupId">
+                        <option value="">Grup seçiniz</option>
+                    </select>
+                    <span asp-validation-for="GroupId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="StadiumId">Stadyum</label>
+                    <select asp-for="StadiumId" class="form-control modern-input" asp-items="ViewBag.StadiumId">
+                        <option value="">Stadyum seçiniz</option>
+                    </select>
+                    <span asp-validation-for="StadiumId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="HomeTeamId">Ev Sahibi Takım</label>
+                    <select asp-for="HomeTeamId" class="form-control modern-input" asp-items="ViewBag.HomeTeamId">
+                        <option value="">Ev Sahibi seçiniz</option>
+                    </select>
+                    <span asp-validation-for="HomeTeamId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="AwayTeamId">Deplasman Takımı</label>
+                    <select asp-for="AwayTeamId" class="form-control modern-input" asp-items="ViewBag.AwayTeamId">
+                        <option value="">Deplasman seçiniz</option>
+                    </select>
+                    <span asp-validation-for="AwayTeamId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="MatchDate">Maç Tarihi</label>
+                    <input asp-for="MatchDate" class="form-control modern-input" type="datetime-local" />
+                    <span asp-validation-for="MatchDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="MatchStage">Maç Aşaması</label>
+                    <select asp-for="MatchStage" class="form-control modern-input" asp-items="ViewBag.MatchStage"></select>
+                    <span asp-validation-for="MatchStage" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="MatchStatus">Maç Durumu</label>
+                    <select asp-for="MatchStatus" class="form-control modern-input" asp-items="ViewBag.MatchStatus"></select>
+                    <span asp-validation-for="MatchStatus" class="text-danger"></span>
+                </div>
+
+                <div class="form-actions-modern">
+                    <a asp-action="Index" class="btn-back-modern">Listeye Dön</a>
+                    <button type="submit" class="btn-save-modern">Maçı Kaydet</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-info-card">
+            <h3>Bilgilendirme</h3>
+            <p>
+                Maçlar takımların eşleşmelerini ve skorları tutar. İlerleyen süreçte
+                <strong>MatchEvents</strong> ile maç olaylarını takip edebilirsin.
+            </p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/script.js" asp-append-version="true"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

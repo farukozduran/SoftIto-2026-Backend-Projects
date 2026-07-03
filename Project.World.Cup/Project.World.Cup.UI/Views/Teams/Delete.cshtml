@@ -1,0 +1,63 @@
+@model Project.World.Cup.Model.Team
+
+@{
+    ViewData["Title"] = "Takım Sil";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+}
+
+<div class="container entity-page">
+    <div class="entity-hero danger-hero">
+        <h1>Takım Sil</h1>
+        <p>
+            Seçili takım kaydını silmek üzeresin. Bu işlemden önce takımın bulunduğu maç ve grupları kontrol etmelisin.
+        </p>
+    </div>
+
+    <div class="delete-shell">
+        <div class="delete-card">
+            <div class="delete-icon">!</div>
+            <div class="delete-content">
+                <span class="form-kicker danger-text">Silme Onayı</span>
+                <h2>@Model.TeamName silinsin mi?</h2>
+                <p>
+                    Bu işlem geri alınamaz. Eğer bu takıma ait maç kayıtları veya grup bağlantıları varsa,
+                    veritabanı ilişkilerinden dolayı silme işlemi hata verebilir.
+                </p>
+
+                <div class="delete-details">
+                    <div class="delete-detail-item">
+                        <small>Takım Adı</small>
+                        <span>@Model.TeamName</span>
+                    </div>
+
+                    <div class="delete-detail-item">
+                        <small>Kısa Kod</small>
+                        <span>@Model.ShortCode</span>
+                    </div>
+
+                    <div class="delete-detail-item">
+                        <small>Teknik Direktör</small>
+                        <span>@(string.IsNullOrEmpty(Model.CoachName) ? "Belirtilmedi" : Model.CoachName)</span>
+                    </div>
+                </div>
+
+                <form asp-action="Delete" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="TeamId" />
+
+                    <div class="form-actions-modern">
+                        <a asp-action="Index" class="btn-back-modern">Vazgeç</a>
+                        <button type="submit" class="btn-delete-modern">Evet, Takımı Sil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/script.js" asp-append-version="true"></script>
+}

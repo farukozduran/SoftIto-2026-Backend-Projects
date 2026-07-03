@@ -11,7 +11,7 @@ namespace Project.World.Cup.Model
         public int TeamId { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(50)]
         public string TeamName { get; set; }
 
         [Required]

@@ -1,8 +1,146 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Ana Sayfa";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <style>
+        .home-hero {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            border-radius: 16px;
+            padding: 80px 40px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .home-hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+            opacity: 0.9;
+        }
+
+        .home-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .home-btn {
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-home {
+            background-color: white;
+            color: #b21f1f;
+        }
+
+        .btn-primary-home:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+            color: #b21f1f;
+        }
+
+        .btn-secondary-home {
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+
+        .btn-secondary-home:hover {
+            background-color: rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+    </style>
+}
+
+<div class="container">
+    <div class="home-hero">
+        <h1>Dünya Kupası Yönetim Paneli</h1>
+        <p>
+            Dünyanın en büyük futbol organizasyonunu tek bir yerden yönetin. Turnuvalar, stadyumlar, takımlar, maçlar ve maç olaylarını detaylı olarak takip edin.
+        </p>
+        <div class="home-actions">
+            <a asp-controller="Matches" asp-action="Index" class="home-btn btn-primary-home">Maçları Görüntüle</a>
+            <a asp-controller="Teams" asp-action="Index" class="home-btn btn-secondary-home">Takımları Keşfet</a>
+        </div>
+    </div>
+
+    <h2 class="text-center mb-4" style="font-weight: 700; color: #333;">Yönetim Modülleri</h2>
+
+    <div class="features-grid">
+        <a asp-controller="Tournaments" asp-action="Index" style="text-decoration: none; color: inherit;">
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3>Turnuvalar</h3>
+                <p class="text-muted">Turnuva tarihlerini ve yıllarını yönetin.</p>
+            </div>
+        </a>
+
+        <a asp-controller="Stadiums" asp-action="Index" style="text-decoration: none; color: inherit;">
+            <div class="feature-card">
+                <div class="feature-icon">🏟️</div>
+                <h3>Stadyumlar</h3>
+                <p class="text-muted">Kapasite ve şehir bilgileriyle arenaları ekleyin.</p>
+            </div>
+        </a>
+
+        <a asp-controller="Groups" asp-action="Index" style="text-decoration: none; color: inherit;">
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Gruplar</h3>
+                <p class="text-muted">Turnuva ağacı ve grup dağılımlarını belirleyin.</p>
+            </div>
+        </a>
+
+        <a asp-controller="MatchEvents" asp-action="Index" style="text-decoration: none; color: inherit;">
+            <div class="feature-card">
+                <div class="feature-icon">⏱️</div>
+                <h3>Maç Olayları</h3>
+                <p class="text-muted">Gol, kart ve tüm maç içi aksiyonları kaydedin.</p>
+            </div>
+        </a>
+    </div>
 </div>
+

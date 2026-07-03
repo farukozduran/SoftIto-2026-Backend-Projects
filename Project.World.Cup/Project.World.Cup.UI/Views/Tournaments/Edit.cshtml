@@ -1,0 +1,84 @@
+@model Project.World.Cup.Model.Tournament
+
+@{
+    ViewData["Title"] = "Turnuva Düzenle";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+}
+
+<div class="container entity-page">
+    <div class="entity-hero">
+        <h1>Turnuva Düzenle</h1>
+        <p>
+            Mevcut turnuvanın adını, yılını ve tarihlerini güncelleyebilirsin.
+        </p>
+    </div>
+
+    <div class="form-shell">
+        <div class="form-card">
+            <div class="form-card-header">
+                <div>
+                    <span class="form-kicker">Turnuva Güncelleme</span>
+                    <h2>@Model.TournamentName</h2>
+                    <p>Seçili turnuvanın bilgilerini düzenle ve değişiklikleri kaydet.</p>
+                </div>
+
+                <div class="form-icon-box">
+                    <span>✏️</span>
+                </div>
+            </div>
+
+            <form asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="TournamentId" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-group-modern">
+                    <label asp-for="TournamentName">Turnuva Adı</label>
+                    <input asp-for="TournamentName" class="form-control modern-input" />
+                    <span asp-validation-for="TournamentName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="Year">Yıl</label>
+                    <input asp-for="Year" class="form-control modern-input" type="number" />
+                    <span asp-validation-for="Year" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="StartDate">Başlangıç Tarihi</label>
+                    <input asp-for="StartDate" class="form-control modern-input" type="date" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="EndDate">Bitiş Tarihi</label>
+                    <input asp-for="EndDate" class="form-control modern-input" type="date" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-actions-modern">
+                    <a asp-action="Index" class="btn-back-modern">Listeye Dön</a>
+                    <button type="submit" class="btn-save-modern">Değişiklikleri Kaydet</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-info-card">
+            <h3>Düzenleme Notu</h3>
+            <p>
+                Turnuva tarihini değiştirdiğinizde, daha önce eklenen maçların tarihlerinin bu aralıkta kalmasına dikkat ediniz.
+            </p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/script.js" asp-append-version="true"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,96 @@
+@model Project.World.Cup.Model.MatchEvent
+
+@{
+    ViewData["Title"] = "Maç Olayı Düzenle";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+}
+
+<div class="container entity-page">
+    <div class="entity-hero">
+        <h1>Maç Olayı Düzenle</h1>
+        <p>
+            Yanlış girilmiş bir maç olayını güncelleyebilir veya dakika bilgilerini düzeltebilirsiniz.
+        </p>
+    </div>
+
+    <div class="form-shell">
+        <div class="form-card">
+            <div class="form-card-header">
+                <div>
+                    <span class="form-kicker">Olay Güncelleme</span>
+                    <h2>@Model.EventType - @Model.EventMinute'</h2>
+                    <p>Seçili olayın bilgilerini düzenle ve değişiklikleri kaydet.</p>
+                </div>
+
+                <div class="form-icon-box">
+                    <span>✏️</span>
+                </div>
+            </div>
+
+            <form asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="MatchEventId" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-group-modern">
+                    <label asp-for="MatchId">Maç</label>
+                    <select asp-for="MatchId" class="form-control modern-input" asp-items="ViewBag.MatchId">
+                        <option value="">Maç seçiniz</option>
+                    </select>
+                    <span asp-validation-for="MatchId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="TeamId">İlgili Takım</label>
+                    <select asp-for="TeamId" class="form-control modern-input" asp-items="ViewBag.TeamId">
+                        <option value="">Takım seçiniz</option>
+                    </select>
+                    <span asp-validation-for="TeamId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="EventType">Olay Türü</label>
+                    <select asp-for="EventType" class="form-control modern-input" asp-items="ViewBag.EventType">
+                        <option value="">Olay türü seçiniz</option>
+                    </select>
+                    <span asp-validation-for="EventType" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="PlayerName">Oyuncu Adı (Opsiyonel)</label>
+                    <input asp-for="PlayerName" class="form-control modern-input" />
+                    <span asp-validation-for="PlayerName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="EventMinute">Dakika</label>
+                    <input asp-for="EventMinute" class="form-control modern-input" type="number" min="1" max="130" />
+                    <span asp-validation-for="EventMinute" class="text-danger"></span>
+                </div>
+
+                <div class="form-actions-modern">
+                    <a asp-action="Index" class="btn-back-modern">Listeye Dön</a>
+                    <button type="submit" class="btn-save-modern">Değişiklikleri Kaydet</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-info-card">
+            <h3>Düzenleme Notu</h3>
+            <p>
+                Olayın maç içindeki dakikası kronolojik sıralama için önemlidir. Lütfen doğru olduğundan emin olunuz.
+            </p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/script.js" asp-append-version="true"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

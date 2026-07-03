@@ -1,0 +1,63 @@
+@model Project.World.Cup.Model.Match
+
+@{
+    ViewData["Title"] = "Maç Sil";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+}
+
+<div class="container entity-page">
+    <div class="entity-hero danger-hero">
+        <h1>Maç Sil</h1>
+        <p>
+            Seçili maç kaydını silmek üzeresin. Bu işlemden önce maçın detaylarını kontrol etmelisin.
+        </p>
+    </div>
+
+    <div class="delete-shell">
+        <div class="delete-card">
+            <div class="delete-icon">!</div>
+            <div class="delete-content">
+                <span class="form-kicker danger-text">Silme Onayı</span>
+                <h2>Bu maç silinsin mi?</h2>
+                <p>
+                    Bu işlem geri alınamaz. Eğer bu maça bağlı olay (MatchEvents) kayıtları varsa, 
+                    veritabanı ilişkilerinden dolayı silme işlemi hata verebilir.
+                </p>
+
+                <div class="delete-details">
+                    <div class="delete-detail-item">
+                        <small>Ev Sahibi</small>
+                        <span>@(Model.HomeTeam == null ? "Belirtilmedi" : Model.HomeTeam.TeamName)</span>
+                    </div>
+
+                    <div class="delete-detail-item">
+                        <small>Deplasman</small>
+                        <span>@(Model.AwayTeam == null ? "Belirtilmedi" : Model.AwayTeam.TeamName)</span>
+                    </div>
+
+                    <div class="delete-detail-item">
+                        <small>Maç Tarihi</small>
+                        <span>@(Model.MatchDate.HasValue ? Model.MatchDate.Value.ToString("dd.MM.yyyy HH:mm") : "Belirtilmedi")</span>
+                    </div>
+                </div>
+
+                <form asp-action="Delete" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="MatchId" />
+
+                    <div class="form-actions-modern">
+                        <a asp-action="Index" class="btn-back-modern">Vazgeç</a>
+                        <button type="submit" class="btn-delete-modern">Evet, Maçı Sil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/script.js" asp-append-version="true"></script>
+}

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Project.World.Cup.Data;
@@ -32,11 +32,7 @@ namespace Project.World.Cup.UI.Controllers
        [HttpGet]
         public IActionResult Create()
         {
-            ViewData["TeamId"] = new SelectList(
-                _context.Matches.ToList(),
-                "TeamId",
-                "TeamName"
-                );
+            CreateSelectLists();
             return View();
 
         }

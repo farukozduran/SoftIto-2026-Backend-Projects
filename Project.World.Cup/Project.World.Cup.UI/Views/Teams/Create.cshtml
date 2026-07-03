@@ -1,0 +1,83 @@
+@model Project.World.Cup.Model.Team
+
+@{
+    ViewData["Title"] = "Yeni Takım Ekle";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+}
+
+<div class="container entity-page">
+    <div class="entity-hero">
+        <h1>Yeni Takım Ekle</h1>
+        <p>
+            Dünya Kupası turnuvasında yer alacak yeni bir takımı, bayrağı ve teknik direktör bilgileriyle sisteme kaydedebilirsin.
+        </p>
+    </div>
+
+    <div class="form-shell">
+        <div class="form-card">
+            <div class="form-card-header">
+                <div>
+                    <span class="form-kicker">Takım Yönetimi</span>
+                    <h2>Takım Bilgileri</h2>
+                    <p>Takım detaylarını girerek yeni kayıt oluştur.</p>
+                </div>
+
+                <div class="form-icon-box">
+                    <span>🎌</span>
+                </div>
+            </div>
+
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-group-modern">
+                    <label asp-for="TeamName">Takım Adı</label>
+                    <input asp-for="TeamName" class="form-control modern-input" placeholder="Örn: Türkiye" />
+                    <span asp-validation-for="TeamName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="ShortCode">Kısa Kod</label>
+                    <input asp-for="ShortCode" class="form-control modern-input" placeholder="Örn: TUR" />
+                    <span asp-validation-for="ShortCode" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="CoachName">Teknik Direktör</label>
+                    <input asp-for="CoachName" class="form-control modern-input" placeholder="Örn: Vincenzo Montella" />
+                    <span asp-validation-for="CoachName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="FlagUrl">Bayrak Görsel URL</label>
+                    <input asp-for="FlagUrl" class="form-control modern-input" placeholder="Örn: https://example.com/flag.png" />
+                    <span asp-validation-for="FlagUrl" class="text-danger"></span>
+                </div>
+
+                <div class="form-actions-modern">
+                    <a asp-action="Index" class="btn-back-modern">Listeye Dön</a>
+                    <button type="submit" class="btn-save-modern">Takımı Kaydet</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-info-card">
+            <h3>Bilgilendirme</h3>
+            <p>
+                Takımlar daha sonra gruplara atanabilir ve maçlarda seçilebilir. Takım kısa kodlarını üç harfli (Örn: ARG, BRA) girmen tavsiye edilir.
+            </p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/script.js" asp-append-version="true"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

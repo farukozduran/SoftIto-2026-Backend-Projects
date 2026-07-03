@@ -1,0 +1,83 @@
+@model Project.World.Cup.Model.Tournament
+
+@{
+    ViewData["Title"] = "Yeni Turnuva Ekle";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+}
+
+<div class="container entity-page">
+    <div class="entity-hero">
+        <h1>Yeni Turnuva Ekle</h1>
+        <p>
+            Dünya Kupası organizasyonu için yeni bir turnuva yılını, başlangıç ve bitiş tarihlerini belirleyerek kaydet.
+        </p>
+    </div>
+
+    <div class="form-shell">
+        <div class="form-card">
+            <div class="form-card-header">
+                <div>
+                    <span class="form-kicker">Turnuva Yönetimi</span>
+                    <h2>Turnuva Bilgileri</h2>
+                    <p>Turnuva detaylarını girerek yeni kayıt oluştur.</p>
+                </div>
+
+                <div class="form-icon-box">
+                    <span>🏆</span>
+                </div>
+            </div>
+
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-group-modern">
+                    <label asp-for="TournamentName">Turnuva Adı</label>
+                    <input asp-for="TournamentName" class="form-control modern-input" placeholder="Örn: World Cup 2026" />
+                    <span asp-validation-for="TournamentName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="Year">Yıl</label>
+                    <input asp-for="Year" class="form-control modern-input" type="number" placeholder="Örn: 2026" />
+                    <span asp-validation-for="Year" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="StartDate">Başlangıç Tarihi</label>
+                    <input asp-for="StartDate" class="form-control modern-input" type="date" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="EndDate">Bitiş Tarihi</label>
+                    <input asp-for="EndDate" class="form-control modern-input" type="date" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-actions-modern">
+                    <a asp-action="Index" class="btn-back-modern">Listeye Dön</a>
+                    <button type="submit" class="btn-save-modern">Turnuvayı Kaydet</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-info-card">
+            <h3>Bilgilendirme</h3>
+            <p>
+                Oluşturduğunuz turnuva, grupların ve maçların temelini oluşturur. Daha sonra bu turnuvaya takımlar ve gruplar ekleyebilirsiniz.
+            </p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/script.js" asp-append-version="true"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

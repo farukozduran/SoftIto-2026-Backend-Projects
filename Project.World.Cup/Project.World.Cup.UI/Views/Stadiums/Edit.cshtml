@@ -1,0 +1,84 @@
+@model Project.World.Cup.Model.Stadium
+
+@{
+    ViewData["Title"] = "Stadyum Düzenle";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+}
+
+<div class="container entity-page">
+    <div class="entity-hero">
+        <h1>Stadyum Düzenle</h1>
+        <p>
+            Mevcut stadyumun adını, kapasitesini veya konum bilgilerini güncelleyebilirsin.
+        </p>
+    </div>
+
+    <div class="form-shell">
+        <div class="form-card">
+            <div class="form-card-header">
+                <div>
+                    <span class="form-kicker">Stadyum Güncelleme</span>
+                    <h2>@Model.StadiumName</h2>
+                    <p>Seçili stadyumun bilgilerini düzenle ve değişiklikleri kaydet.</p>
+                </div>
+
+                <div class="form-icon-box">
+                    <span>✏️</span>
+                </div>
+            </div>
+
+            <form asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="StadiumId" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-group-modern">
+                    <label asp-for="StadiumName">Stadyum Adı</label>
+                    <input asp-for="StadiumName" class="form-control modern-input" />
+                    <span asp-validation-for="StadiumName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="City">Şehir</label>
+                    <input asp-for="City" class="form-control modern-input" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="Country">Ülke</label>
+                    <input asp-for="Country" class="form-control modern-input" />
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="Capacity">Kapasite</label>
+                    <input asp-for="Capacity" class="form-control modern-input" type="number" />
+                    <span asp-validation-for="Capacity" class="text-danger"></span>
+                </div>
+
+                <div class="form-actions-modern">
+                    <a asp-action="Index" class="btn-back-modern">Listeye Dön</a>
+                    <button type="submit" class="btn-save-modern">Değişiklikleri Kaydet</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-info-card">
+            <h3>Düzenleme Notu</h3>
+            <p>
+                Stadyum bilgileri, bağlı olduğu tüm maç kayıtlarında da yansıyacaktır. Lütfen stadyum ismini anlaşılır şekilde giriniz.
+            </p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/script.js" asp-append-version="true"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

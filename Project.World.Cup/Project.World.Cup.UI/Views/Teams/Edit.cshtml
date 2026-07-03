@@ -1,0 +1,84 @@
+@model Project.World.Cup.Model.Team
+
+@{
+    ViewData["Title"] = "Takım Düzenle";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+}
+
+<div class="container entity-page">
+    <div class="entity-hero">
+        <h1>Takım Düzenle</h1>
+        <p>
+            Mevcut takımın adını, kısa kodunu, bayrağını veya teknik direktör bilgisini güncelleyebilirsin.
+        </p>
+    </div>
+
+    <div class="form-shell">
+        <div class="form-card">
+            <div class="form-card-header">
+                <div>
+                    <span class="form-kicker">Takım Güncelleme</span>
+                    <h2>@Model.TeamName</h2>
+                    <p>Seçili takımın bilgilerini düzenle ve değişiklikleri kaydet.</p>
+                </div>
+
+                <div class="form-icon-box">
+                    <span>✏️</span>
+                </div>
+            </div>
+
+            <form asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="TeamId" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-group-modern">
+                    <label asp-for="TeamName">Takım Adı</label>
+                    <input asp-for="TeamName" class="form-control modern-input" />
+                    <span asp-validation-for="TeamName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="ShortCode">Kısa Kod</label>
+                    <input asp-for="ShortCode" class="form-control modern-input" />
+                    <span asp-validation-for="ShortCode" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="CoachName">Teknik Direktör</label>
+                    <input asp-for="CoachName" class="form-control modern-input" />
+                    <span asp-validation-for="CoachName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label asp-for="FlagUrl">Bayrak Görsel URL</label>
+                    <input asp-for="FlagUrl" class="form-control modern-input" />
+                    <span asp-validation-for="FlagUrl" class="text-danger"></span>
+                </div>
+
+                <div class="form-actions-modern">
+                    <a asp-action="Index" class="btn-back-modern">Listeye Dön</a>
+                    <button type="submit" class="btn-save-modern">Değişiklikleri Kaydet</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-info-card">
+            <h3>Düzenleme Notu</h3>
+            <p>
+                Bu takımın yer aldığı maçlarda ve gruplarda yeni isim/bayrak hemen görünecektir. 
+            </p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/script.js" asp-append-version="true"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

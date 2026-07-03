@@ -1,0 +1,88 @@
+@model IEnumerable<Project.World.Cup.Model.MatchEvent>
+
+@{
+    ViewData["Title"] = "Maç Olayları";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+}
+
+<div class="container entity-page">
+    <div class="entity-hero">
+        <h1>Maç Olayları</h1>
+        <p>
+            Goller, kartlar, oyuncu değişiklikleri ve maç içindeki diğer önemli olayları buradan yönetebilirsiniz.
+        </p>
+    </div>
+
+    <div class="entity-toolbar">
+        <div class="search-box">
+            <input type="text"
+                   class="form-control entity-search"
+                   placeholder="Olay ara... örn: Gol, Yellow Card, Messi" />
+        </div>
+
+        <a asp-action="Create" class="create-btn">
+            + Yeni Olay Ekle
+        </a>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="entity-grid">
+            @foreach (var item in Model)
+            {
+                var matchName = item.Match != null ? $"{(item.Match.HomeTeam != null ? item.Match.HomeTeam.TeamName : "")} - {(item.Match.AwayTeam != null ? item.Match.AwayTeam.TeamName : "")}" : "Belirtilmedi";
+                
+                <div class="entity-card" data-search="@($"{matchName} {item.EventType} {item.PlayerName}".ToLower())">
+                    <div class="entity-card-content">
+                        <div class="entity-header">
+                            <div class="entity-icon-box">
+                                <span class="entity-icon-placeholder">
+                                    @(item.EventType == "Goal" ? "⚽" : item.EventType == "Yellow Card" ? "🟨" : item.EventType == "Red Card" ? "🟥" : "⏱️")
+                                </span>
+                            </div>
+
+                            <div>
+                                <h3 class="entity-title">@item.EventType</h3>
+                                <span class="entity-badge">@item.EventMinute'</span>
+                            </div>
+                        </div>
+
+                        <div class="entity-info">
+                            <small>Maç</small>
+                            <span>@matchName</span>
+                        </div>
+
+                        <div class="entity-info">
+                            <small>Takım</small>
+                            <span>@(item.Team != null ? item.Team.TeamName : "-")</span>
+                        </div>
+
+                        <div class="entity-info">
+                            <small>Oyuncu</small>
+                            <span>@(string.IsNullOrEmpty(item.PlayerName) ? "-" : item.PlayerName)</span>
+                        </div>
+
+                        <div class="entity-actions">
+                            <a asp-action="Edit" asp-route-id="@item.MatchEventId" class="btn-edit">Düzenle</a>
+                            <a asp-action="Delete" asp-route-id="@item.MatchEventId" class="btn-delete">Sil</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <h4>Henüz maç olayı eklenmemiş.</h4>
+            <p>İlk olayı ekleyerek maçın detaylı analizini tutmaya başlayabilirsiniz.</p>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="~/js/script.js" asp-append-version="true"></script>
+}
