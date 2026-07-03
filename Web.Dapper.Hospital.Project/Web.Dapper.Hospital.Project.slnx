@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Web.Dapper.Hospital.Project.API/Web.Dapper.Hospital.Project.API.csproj" />
+  <Project Path="Web.Dapper.Hospital.Project.Data/Web.Dapper.Hospital.Project.Data.csproj" />
+  <Project Path="Web.Dapper.Hospital.Project.Entity/Web.Dapper.Hospital.Project.Entity.csproj" />
+</Solution>

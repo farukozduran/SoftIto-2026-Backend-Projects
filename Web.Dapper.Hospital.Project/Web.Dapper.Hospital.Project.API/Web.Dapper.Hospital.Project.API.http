@@ -1,0 +1,6 @@
+@Web.Dapper.Hospital.Project.API_HostAddress = http://localhost:5283
+
+GET {{Web.Dapper.Hospital.Project.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
