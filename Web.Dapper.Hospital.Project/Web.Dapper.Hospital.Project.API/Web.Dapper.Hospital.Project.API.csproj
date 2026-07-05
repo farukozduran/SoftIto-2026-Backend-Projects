@@ -6,4 +6,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Web.Dapper.Hospital.Project.Data\Web.Dapper.Hospital.Project.Data.csproj" />
+    <ProjectReference Include="..\Web.Dapper.Hospital.Project.Entity\Web.Dapper.Hospital.Project.Entity.csproj" />
+  </ItemGroup>
+
 </Project>
