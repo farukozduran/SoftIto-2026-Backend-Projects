@@ -1,6 +1,6 @@
 # SoftIto Backend Development Portfolio
 
-Welcome to my backend development portfolio! This repository serves as a centralized hub for the projects I developed during the **SoftIto Backend Developer Training Program**, organized in collaboration with the **Istanbul Chamber of Commerce (İTO)**. 
+Welcome to my backend development portfolio! This repository serves as a centralized hub for the projects I developed during the **SoftIto Backend Developer Training Program**, organized in collaboration with the **İstanbul Ticaret Odası (İTO)**. 
 
 ---
 
